@@ -1,4 +1,4 @@
-Here’s the code version of your terminal setup and configuration in a `README.md` format:
+Here’s an updated version of the `README.md` that includes Git and GitHub setup, along with installing all dependencies mentioned in previous conversations:
 
 ```markdown
 # .dotfiles
@@ -56,7 +56,7 @@ Customize your `starship.toml` as needed.
 ### Installing Dependencies
 
 ```bash
-# Install essential tools for development and cybersecurity
+# Install essential tools for development, cybersecurity, and terminal customization
 sudo apt update && sudo apt install -y \
   fzf \
   btop \
@@ -75,8 +75,54 @@ sudo apt update && sudo apt install -y \
   build-essential \
   python3 \
   python3-pip \
-  xclip
+  xclip \
+  lazygit \
+  openssh-client
 ```
+
+### Setting Up Git and GitHub
+
+1. Set up global Git configurations:
+   ```bash
+   git config --global user.name "Your Name"
+   git config --global user.email "youremail@example.com"
+   git config --global init.defaultBranch main
+   ```
+
+2. Set up SSH for GitHub:
+   ```bash
+   # Generate a new SSH key
+   ssh-keygen -t ed25519 -C "youremail@example.com"
+
+   # Add your SSH key to the ssh-agent
+   eval "$(ssh-agent -s)"
+   ssh-add ~/.ssh/id_ed25519
+
+   # Copy the SSH key to your clipboard
+   xclip -selection clipboard < ~/.ssh/id_ed25519.pub
+   ```
+
+3. Add the SSH key to your GitHub account:
+   - Go to [GitHub SSH Settings](https://github.com/settings/ssh/new) and paste your SSH key.
+
+4. Verify your GitHub connection:
+   ```bash
+   ssh -T git@github.com
+   ```
+
+### Cloning Dotfiles from GitHub
+
+1. Clone your dotfiles repository:
+   ```bash
+   git clone git@github.com:Ezra5566/.dotfiles.git
+   ```
+
+2. Symlink relevant files for your configurations:
+   ```bash
+   ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
+   ln -sf ~/dotfiles/superfile/config.toml ~/.config/superfile/config.toml
+   ln -sf ~/dotfiles/nvim ~/.config/nvim
+   ```
 
 ## 2. Other Configurations and Installations
 
@@ -133,7 +179,7 @@ Set up individual git configurations based on your personal preferences.
 
 ---
 
-This configuration file serves as a guide for quickly setting up a development environment on Kali Linux with essential tools and a customized terminal experience.
+This configuration file serves as a guide for quickly setting up a development environment on Kali Linux with essential tools, customized terminal experience, and Git/GitHub integration.
 ```
 
-You can paste this into your `README.md` to display it as code with Markdown formatting! Let me know if you need any adjustments.
+This updated version includes your Git and GitHub setup, SSH key generation, and all dependencies mentioned in previous conversations. Let me know if you'd like any further changes!
