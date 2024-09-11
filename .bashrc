@@ -95,7 +95,7 @@ alias ls='eza --tree --level=2 --color=always --long --git --icons=always --no-t
 
 alias fzf='fzf --height 40% --layout=reverse --border --preview "bat --style=numbers --color=always {}"'
 alias lz='lazygit'
-
+alias vv='nala list'
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
