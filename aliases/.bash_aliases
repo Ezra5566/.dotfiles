@@ -7,7 +7,7 @@ alias fh='eval $(history | fzf | cut -d " " -f 4-)'
 alias ff='find . -type f | fzf'
 
 # Search and Open Files with Custom Commands (e.g., vim)
-alias fvim='find . -type f | fzf | xargs -r vim'
+alias fvim='find . -type f | fzf | xargs -r nvim'
 
 # Fuzzy Grep Search
 alias fg='grep -r "search_term" . | fzf'
