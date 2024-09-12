@@ -4,6 +4,9 @@ return {
     "ellisonleao/gruvbox.nvim",
     lazy = true, -- Load on startup
     priority = 1000, -- Make sure it's loaded first
+    keys = {
+      { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
+    },
     config = function()
       require("gruvbox").setup({
         transparent_mode = true,
