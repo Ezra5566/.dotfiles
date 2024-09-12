@@ -92,9 +92,6 @@ alias la='ls -A'
 alias l='eza --tree --level=2 -long --git --icons=always --color=always'
 alias ls='eza --tree --level=2 --color=always --long --git --icons=always --no-time --no-user --no-permissions'
 #-------------other alias I need------------------------------------
-echo 'if [ -f ~/.aliases.sh ]; then source ~/.aliases.sh; fi' >> ~/.bashrc
-# the others below are more valuable
-
 
 alias fzf='fzf --height 40% --layout=reverse --border --preview "bat --style=numbers --color=always {}"'
 alias lz='lazygit'
@@ -107,6 +104,7 @@ alias vv='nala list'
 if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
+# -------------------------above is linked to ~/.bash_aliases-------------------------------------------
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -157,9 +155,4 @@ eval "$(starship init bash)"
 if [ -f /etc/motd ]; then
   sudo mv /etc/motd /etc/motd.bak
 fi
-if [ -f ~/.aliases.sh ]; then source ~/.aliases.sh; fi
-if [ -f ~/.aliases.sh ]; then source ~/.aliases.sh; fi
-if [ -f ~/.aliases.sh ]; then source ~/.aliases.sh; fi
-if [ -f ~/.aliases.sh ]; then source ~/.aliases.sh; fi
-if [ -f ~/.aliases.sh ]; then source ~/.aliases.sh; fi
-if [ -f ~/.aliases.sh ]; then source ~/.aliases.sh; fi
+

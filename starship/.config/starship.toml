@@ -80,7 +80,7 @@ truncation_symbol = "..."
 style = "bold purple"
 
 [git_status]
-deleted = "🗑"
+deleted = "🗑 "
 untracked = "U"
 modified = "M"
 staged = "+"
