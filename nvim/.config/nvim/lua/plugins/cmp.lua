@@ -281,7 +281,7 @@ return {
       })
     end,
   },
-  --------------------settingup copilot---------------------
+
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",

@@ -2,7 +2,7 @@ return {
   -- Default colorscheme (gruvbox)
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = true, -- Load on startup
+    lazy = false, -- Load on startup
     priority = 1000, -- Make sure it's loaded first
     keys = {
       { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
@@ -14,7 +14,7 @@ return {
           String = { italic = false },
         },
       })
-      -- vim.cmd("colorscheme gruvbox") -- Uncomment to set as default
+      vim.cmd("colorscheme gruvbox") -- Uncomment to set as default
     end,
   },
 
@@ -22,7 +22,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    lazy = false,
+    lazy = true,
     keys = {
       { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
     },
@@ -30,7 +30,7 @@ return {
       require("catppuccin").setup({
         transparent_background = true,
       })
-      vim.cmd("colorscheme catppuccin") -- Uncomment to set as default
+      -- vim.cmd("colorscheme catppuccin") -- Uncomment to set as default
     end,
   },
 
@@ -91,6 +91,25 @@ return {
         borderless_telescope = { border = false, style = "flat" },
       })
       -- vim.cmd("colorscheme cyberdream") -- Uncomment to set as default
+    end,
+  },
+  ------------------Extra colorscheme: flow.nvim -----------------------------
+  {
+    "0xstepit/flow.nvim",
+    lazy = true,
+    keys = {
+      { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
+    },
+    config = function()
+      require("flow").setup({
+        dark_theme = true, -- Set the theme with dark background.
+        high_contrast = true, -- Make the dark background darker or the light background lighter.
+        transparent = true, -- Set transparent background (enabled transparency).
+        fluo_color = "pink", -- Color used as fluo. Available values are pink, yellow, orange, or green.
+        mode = "normal", -- Mode of the colors. Available values are: dark, bright, desaturate, or base.
+        aggressive_spell = false,
+      }) -- Use colors for spell check.
+      -- vim.cmd("colorscheme flow") -- Uncomment to set as default
     end,
   },
 }

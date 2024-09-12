@@ -1,0 +1,61 @@
+gui:
+    theme:
+        lightTheme: false
+        activeBorderColor:
+            - "#fabd2f"
+            - bold
+        inactiveBorderColor:
+            - "#504945"
+        optionsTextColor:
+            - "#ebdbb2"
+        selectedLineBgColor:
+            - "#504945"
+        selectedRangeBgColor:
+            - "#504945"
+        cherryPickedCommitBgColor:
+            - "#427b58"
+        cherryPickedCommitFgColor:
+            - "#ebdbb2"
+        unstagedChangesColor:
+            - "#fb4934"
+    commitLength:
+        show: true
+    mouseEvents: true
+    skipDiscardChangeWarning: false
+    skipStashWarning: true
+    showCommandLog: true
+    showBottomLine: true
+    showFileTree: true
+    showRandomTip: false
+    showBranchCommitHash: true
+    showListFooter: true
+    experimentalShowBranchHeads: true
+    loadingFileSizeLimit: 1000000 # 1MB
+    nerdFontsVersion: "3"
+    # Add this new section for custom loading animations
+    loadingAnimation:
+        push: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+        pull: ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"]
+git:
+    paging:
+        colorArg: always
+        useConfig: false
+    merging:
+        manualCommit: false
+        args: ""
+    pull:
+        mode: merge
+    skipHookPrefix: WIP
+    autoFetch: true
+update:
+    method: prompt
+    days: 14
+reporting: "on"
+splashUpdatesIndex: 0
+confirmOnQuit: false
+quitOnTopLevelReturn: false
+disableStartupPopups: false
+notARepository: "prompt"
+refresher:
+    refreshInterval: 10 # File/submodule refresh interval in seconds
+    fetchInterval: 60 # Remote fetch interval in seconds

@@ -41,12 +41,19 @@ return {
       cmd = { "clangd", "--offset-encoding=utf-16" },
     },
   },
-  gopls = {
-    name = "gopls",
-  },
-  tsserver = {
+  -- gopls = {
+  --   name = "gopls",
+  -- },
+  ts_ls = {
     name = "typescript-language-server",
+    config = {
+      cmd = { "typescript-language-server", "--stdio" },
+      root_dir = function(fname)
+        return require("lspconfig.util").root_pattern("tsconfig.json", "package.json", ".git")(fname)
+      end,
+    },
   },
+
   cssls = {
     name = "css-lsp",
   },
