@@ -52,7 +52,7 @@ alias fremove='dpkg --list | fzf | awk "{print \$2}" | xargs -r sudo apt remove'
 alias fr='ls -ltu | fzf'
 
 # Fuzzy Search for Recently Modified Files
-alias fm='find . -type f -printf "%T@ %p\n" | sort -n | fzf | awk '{print $2}' | xargs -r vim'
+# alias fm='find . -type f -printf "%T@ %p\n" | sort -n | fzf | awk '{print $2}' | xargs -r vim'
 
 # Fuzzy Search Through Processes
 alias fps='ps aux | fzf --preview "echo {} | awk '\''{print \$1, \$11}'\''"'
@@ -70,7 +70,7 @@ alias fsystemd='systemctl list-units --type=service | fzf'
 alias fcron='crontab -l | fzf'
 
 # Fuzzy Search and Open Files with Preview
-alias fopen='find . -type f | fzf --preview "bat {} | head -100" | xargs -r vim'
+# alias fopen='find . -type f | fzf --preview "bat {} | head -100" | xargs -r vim'
 
 # Fuzzy Search Through Docker Containers
 alias fdocker='docker ps -a | fzf --preview "docker inspect {} | jq .[0].State.Status"'
