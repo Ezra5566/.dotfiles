@@ -80,11 +80,11 @@ truncation_symbol = "..."
 style = "bold purple"
 
 [git_status]
-deleted = "🗑 "
+deleted = "🗑"  # 
 untracked = "U"
 modified = "M"
 staged = "+"
-renamed = "👅"
+renamed = "👅"  # 
 conflicted = "🏳"
 ahead = "⇡"  # unpushed commit
 behind = "😰"
