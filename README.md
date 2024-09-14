@@ -183,3 +183,52 @@ This configuration file serves as a guide for quickly setting up a development e
 ```
 
 This updated version includes your Git and GitHub setup, SSH key generation, and all dependencies mentioned in previous conversations. Let me know if you'd like any further changes!
+oco install neovim
+   ```
+# Neovim Installation Guide
+
+This guide will walk you through the process of installing Neovim (including the AppImage option) and FUSE, and making Neovim globally accessible on your system.
+
+## Installing Neovim
+
+### AppImage (Linux)
+
+1. Download the latest Neovim AppImage:
+   ```
+   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+   ```
+
+2. Make the AppImage executable:
+   ```
+   chmod u+x nvim.appimage
+   ```
+
+3. Move the AppImage to a directory in your PATH, for example:
+   ```
+   sudo mv nvim.appimage /usr/local/bin/nvim
+   ```
+
+Note: AppImage requires FUSE to run. If you encounter issues, you may need to install FUSE or use the `--appimage-extract` option to run without FUSE.
+
+
+## Installing FUSE
+
+### Ubuntu/Debian
+
+1. Install FUSE:
+     [NOTE] remener to install fuse before installation even though not necessary
+   ```
+   sudo apt install fuse
+   ```
+## Making Neovim Global
+
+### Linux and macOS
+
+1. If you're using the AppImage, you've already made Neovim global by moving it to /usr/local/bin.
+   ```
+   what are you copying?? you already moved it to ...
+   ```
+2. Reload your shell configuration:
+   ```
+   source ~/.bashrc
+   ```
