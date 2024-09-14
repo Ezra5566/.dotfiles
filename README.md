@@ -183,7 +183,6 @@ This configuration file serves as a guide for quickly setting up a development e
 ```
 
 This updated version includes your Git and GitHub setup, SSH key generation, and all dependencies mentioned in previous conversations. Let me know if you'd like any further changes!
-oco install neovim
    ```
 # Neovim Installation Guide
 
