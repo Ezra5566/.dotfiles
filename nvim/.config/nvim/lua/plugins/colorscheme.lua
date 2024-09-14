@@ -2,7 +2,7 @@ return {
   -- Default colorscheme (gruvbox)
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false, -- Load on startup
+    lazy = true, -- Load on startup
     priority = 1000, -- Make sure it's loaded first
     keys = {
       { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
@@ -14,7 +14,7 @@ return {
           String = { italic = false },
         },
       })
-      vim.cmd("colorscheme gruvbox") -- Uncomment to set as default
+      -- vim.cmd("colorscheme gruvbox") -- Uncomment to set as default
     end,
   },
 
@@ -22,7 +22,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    lazy = true,
+    lazy = false,
     keys = {
       { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
     },
@@ -30,7 +30,7 @@ return {
       require("catppuccin").setup({
         transparent_background = true,
       })
-      -- vim.cmd("colorscheme catppuccin") -- Uncomment to set as default
+      vim.cmd("colorscheme catppuccin") -- Uncomment to set as default
     end,
   },
 
