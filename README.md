@@ -180,10 +180,10 @@ Set up individual git configurations based on your personal preferences.
 ---
 
 This configuration file serves as a guide for quickly setting up a development environment on Kali Linux with essential tools, customized terminal experience, and Git/GitHub integration.
-```
+
 
 This updated version includes your Git and GitHub setup, SSH key generation, and all dependencies mentioned in previous conversations. Let me know if you'd like any further changes!
-   ```
+ 
 # Neovim Installation Guide
 
 This guide will walk you through the process of installing Neovim (including the AppImage option) and FUSE, and making Neovim globally accessible on your system.
