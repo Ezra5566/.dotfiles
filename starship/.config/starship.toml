@@ -77,7 +77,7 @@ style = "bold cyan"
 # symbol = "🌱 "
 truncation_length = 100  # no truncation
 truncation_symbol = "..."
-style = "bold purple"
+style = "bold green"
 
 [git_status]
 deleted = "🗑"  # 
