@@ -180,3 +180,4 @@ source '/home/ezraodyn/.bash_completions/nala.sh'
 eval "$(atuin init bash)"
 
 #-----------------------------------------------------------------------
+
