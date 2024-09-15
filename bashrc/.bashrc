@@ -148,6 +148,11 @@ _fzf_comprun() {
   *) fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
   esac
 }
+#-------------------tmux config path ------------- 
+
+export TMUX_CONF_PATH=~/.config/tmux/tmux.conf
+alias tmux="tmux -f ~/.config/tmux/tmux.conf"
+
 #--------------------------zoxide----------------------------------
 
 eval "$(zoxide init bash)"
@@ -166,3 +171,12 @@ if [ -f /etc/motd ]; then
   sudo mv /etc/motd /etc/motd.bak
 fi
 
+#----------------------nala bash_completions --------------------- 
+source '/home/ezraodyn/.bash_completions/nala.sh'
+#-----------------------atuin history competions-------------------
+. "$HOME/.atuin/bin/env"
+
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+eval "$(atuin init bash)"
+
+#-----------------------------------------------------------------------
