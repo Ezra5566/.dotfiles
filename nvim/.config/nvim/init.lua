@@ -21,7 +21,28 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+-- Your existing setup...
 
+-- Modify the lazy.nvim setup
+require("lazy").setup({
+  { import = "plugins" },
+  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+}, {
+  install = {
+    colorscheme = { "gruvbox", "catppuccin" },
+  },
+  -- ... rest of your existing lazy.nvim configuration ...
+})
+
+-- Add this check after the lazy.nvim setup
+local status_ok, telescope = pcall(require, "telescope")
+if not status_ok then
+  print("Failed to load Telescope: " .. telescope)
+else
+  print("Telescope loaded successfully")
+end
+vim.g.lazy_show_reload_warning = false
+-- Rest of your init.lua...
 require("lazy").setup("plugins", {
   install = {
     colorscheme = { "gruvbox", "catppuccin" },
