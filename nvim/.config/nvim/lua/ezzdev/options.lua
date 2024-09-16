@@ -74,7 +74,7 @@ opt.path:append({ "**" }) -- Finding files - Search down into subfolders
 opt.updatetime = 100 -- ref: https://www.reddit.com/r/vim/comments/jqogan/how_does_a_lower_updatetime_lead_to_better/
 opt.belloff = "all" -- Just turn the dang bell off
 opt.signcolumn = "yes" -- always showing the signcolumn
-opt.guicursor = "a:block"
+opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
 
 -- Add "LiveServer" command to quick execute live-server of npm
 vim.api.nvim_create_user_command("LiveServer", function()
