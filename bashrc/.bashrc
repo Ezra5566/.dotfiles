@@ -174,11 +174,14 @@ fi
 #----------------------nala bash_completions --------------------- 
 source '/home/ezraodyn/.bash_completions/nala.sh'
 #-----------------------atuin history competions-------------------
+#-----------------------------------------------------------------------
+
+
+
 . "$HOME/.atuin/bin/env"
 
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
 eval "$(atuin init bash)"
 
-#-----------------------------------------------------------------------
 export PATH=$PATH:/home/ezraodyn/go/bin
 
