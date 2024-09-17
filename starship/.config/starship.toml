@@ -81,6 +81,7 @@ style = "bold green"
 
 [git_status]
 deleted = "🗑"  # 
+deleted = " "
 untracked = "U"
 modified = "M"
 staged = "+"
@@ -116,6 +117,7 @@ threshold = 1
 [battery]
 disabled = false
 # full_symbol = "🔋 "
+ full_symbol = "󱟢 "
 charging_symbol = "⚡"
 discharging_symbol = " 󱟤 "
 [[battery.display]]
