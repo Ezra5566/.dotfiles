@@ -234,4 +234,10 @@ Note: AppImage requires FUSE to run. If you encounter issues, you may need to in
    source ~/.bashrc
    ```
 
-   added a few new features like tmux 
+   added a few new features like tmux
+
+   ![**catpuccin** style](./images/catpuccin.png)
+   > my catpuccin config
+
+   ![gruvbox/ayu /**dark** style](./images/gruvbomx.png)
+   > my default config
