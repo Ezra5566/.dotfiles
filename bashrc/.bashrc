@@ -180,4 +180,5 @@ source '/home/ezraodyn/.bash_completions/nala.sh'
 eval "$(atuin init bash)"
 
 #-----------------------------------------------------------------------
+export PATH=$PATH:/home/ezraodyn/go/bin
 

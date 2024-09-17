@@ -62,8 +62,10 @@ sudo apt update && sudo apt install -y \
   btop \
   bat \
   eza \
+  yq \
   nodejs \
   npm \
+  golang-go \
   yarn \
   git \
   gh \
@@ -231,3 +233,5 @@ Note: AppImage requires FUSE to run. If you encounter issues, you may need to in
    ```
    source ~/.bashrc
    ```
+
+   added a few new features like tmux 
