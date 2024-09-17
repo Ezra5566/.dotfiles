@@ -239,5 +239,5 @@ Note: AppImage requires FUSE to run. If you encounter issues, you may need to in
    ![**catpuccin** style](./images/catpuccin.png)
    > my catpuccin config
 
-   ![gruvbox/ayu /**dark** style](./images/gruvbomx.png)
+   ![gruvbox/ayu /**dark** style](./images/gruvbox.png)
    > my default config
