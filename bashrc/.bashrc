@@ -152,6 +152,7 @@ _fzf_comprun() {
 
 export TMUX_CONF_PATH=~/.config/tmux/tmux.conf
 alias tmux="tmux -f ~/.config/tmux/tmux.conf"
+export PATH=$PATH:/home/ezraodyn/go/bin  # Add go to path
 
 #--------------------------zoxide----------------------------------
 
@@ -182,6 +183,4 @@ source '/home/ezraodyn/.bash_completions/nala.sh'
 
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
 eval "$(atuin init bash)"
-
-export PATH=$PATH:/home/ezraodyn/go/bin
 
