@@ -65,7 +65,7 @@ disabled = true
 show_always = true
 style_user = "white bold"
 style_root = "white bold"
-# format = "user: [$user]($style) "
+format = "user: [$user]($style) "
 
 [directory]
 # truncation_length = 3
@@ -74,13 +74,12 @@ style = "bold cyan"
 
 ## Git settings
 [git_branch]
-# symbol = "🌱 "
+symbol = "  " 
 truncation_length = 100  # no truncation
 truncation_symbol = "..."
 style = "bold green"
 
 [git_status]
-deleted = "🗑"  # 
 deleted = " "
 untracked = "U"
 modified = "M"
@@ -105,7 +104,7 @@ disabled = false
 threshold = 30  ## if memory usage is over 30%, show memory usage
 # format = 'via $symbol [$ram_pct, $ram \($swap_pct, $swap\) ]($style)'
 format = 'via $symbol [$ram_pct \($ram\) ]($style)'
-symbol = "󰍛"
+symbol = " 󰍛 " # " "  # "🧠"
 style = "bold dimmed green"
 # style = "bold gray"
 
@@ -116,23 +115,13 @@ threshold = 1
 
 [battery]
 disabled = false
-# full_symbol = "🔋 "
- full_symbol = "󱟢 "
+full_symbol = "󱟢 "  # "🔋 "
 charging_symbol = "⚡"
 discharging_symbol = " 󱟤 "
 [[battery.display]]
 threshold = 50
 style = "bold green"
 
-# [time]
-# disabled = false
-# format = "🕙[ \[$time\] ]($style)"
-# format = "at 󰃭 [$time]($style) "
-# style = "bold yellow"
-# use_12hr = false
-# time_format = "%Y/%m/%d %T"
-# utc_time_offset = "+9"
-# time_range="-"  # always: time_range="00:00:00-23:59:59"
 [time]
 disabled = true
 format = "at 󰃭 [$time]($style) "
