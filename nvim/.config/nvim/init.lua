@@ -24,26 +24,11 @@ vim.opt.rtp:prepend(lazypath)
 -- Your existing setup...
 
 -- Modify the lazy.nvim setup
+-- Lazy.nvim setup
 require("lazy").setup({
-  { import = "plugins" },
-  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  { import = "plugins" }, -- Import your plugin configurations
+  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } }, -- Telescope plugin with dependencies
 }, {
-  install = {
-    colorscheme = { "gruvbox", "catppuccin" },
-  },
-  -- ... rest of your existing lazy.nvim configuration ...
-})
-
--- Add this check after the lazy.nvim setup
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  print("Failed to load Telescope: " .. telescope)
-else
-  print("Telescope loaded successfully")
-end
-vim.g.lazy_show_reload_warning = false
--- Rest of your init.lua...
-require("lazy").setup("plugins", {
   install = {
     colorscheme = { "gruvbox", "catppuccin" },
   },
@@ -62,14 +47,19 @@ require("lazy").setup("plugins", {
       },
     },
   },
-  change_detection = {
-    notify = false,
-  },
-  dev = {
-    path = "~/personal",
-  },
 })
 
+-- Check for Telescope status
+local status_ok, telescope = pcall(require, "telescope")
+if not status_ok then
+  print("Failed to load Telescope: " .. telescope)
+else
+  print("Telescope loaded successfully")
+end
+
+-- Prevent lazy.nvim from showing reload warning
+vim.g.lazy_show_reload_warning = false
+--
 -- close lazy panel with esc
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {
