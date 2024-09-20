@@ -113,7 +113,7 @@ alias gdiff='git diff --color=auto'
 alias h='history | fzf'
 
 # Check for any available updates on Debian-based systems
-alias update='sudo apt update && sudo apt upgrade'
+alias update='sudo nala update && sudo nala upgrade'
 
 # Check and repair file system (requires sudo)
 alias fsck='sudo fsck'
