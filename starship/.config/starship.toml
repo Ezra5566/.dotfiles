@@ -74,7 +74,7 @@ style = "bold cyan"
 
 ## Git settings
 [git_branch]
-ignore_branches = ["main", "master"]
+# ignore_branches = ["main", "master"]
 symbol = "  " 
 truncation_length = 100  # no truncation
 truncation_symbol = "..."
