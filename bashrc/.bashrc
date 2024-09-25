@@ -98,10 +98,10 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -l'
+alias ll='eza --tree --level=2 --color=always --long --git --icons=always --no-time --no-user --no-permissions'
 alias la='ls -A'
 alias l='eza --tree --level=2 -long --git --icons=always --color=always'
-alias ls='eza --tree --level=2 --color=always --long --git --icons=always --no-time --no-user --no-permissions'
+alias ls='eza --tree --level=1 --color=always --long --git --icons=always --no-time --no-user --no-permissions'
 #------------------------------------------------------------other alias I need------------------------------------
 
 alias fzf='fzf --height 40% --layout=reverse --border --preview "bat --style=numbers --color=always {}"'
