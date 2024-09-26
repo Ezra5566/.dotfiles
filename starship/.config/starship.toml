@@ -331,7 +331,7 @@ format = "[$symbol$environment]($style) "
 # ignore_base = false
 
 
-
+# NOTE: always place this to prevent container tag
 
 [container]
 disabled = true
