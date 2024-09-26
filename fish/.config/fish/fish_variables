@@ -1,0 +1,47 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export EDITOR:nvim
+SETUVAR --export FZF_DEFAULT_COMMAND:fd\x20\x2dH\x20\x2dE\x20\x27\x2egit\x27
+SETUVAR --export FZ_HIGHLIGHT:green
+SETUVAR --export FZ_PROMPT:\uf054\x20
+SETUVAR --export FZ_VI_MODE:true
+SETUVAR --export --path GOPATH:/home/ezraodyn/go
+SETUVAR --export PAGER:\x7e/\x2elocal/bin/nvimpager
+SETUVAR --export T_FZF_FIND_BINDING:ctrl\x2df\x3achange\x2dprompt\x28\uf07c\x20\x20\x29\x2breload\x28fd\x20\x2dH\x20\x2dd\x202\x20\x2dt\x20d\x20\x2dE\x20\x2eTrash\x20\x2e\x20\x7e\x29
+SETUVAR --export T_FZF_PROMPT:\U0001f9e0\x20
+SETUVAR --export T_REPOS_DIR:/home/ezraodyn/c
+SETUVAR --export T_SESSION_USE_GIT_ROOT:true
+SETUVAR --export VISUAL:nvim
+SETUVAR __fish_initialized:3400
+SETUVAR fish_color_autosuggestion:grey
+SETUVAR fish_color_cancel:\x2dr
+SETUVAR fish_color_command:normal
+SETUVAR fish_color_comment:red
+SETUVAR fish_color_cwd:green
+SETUVAR fish_color_cwd_root:red
+SETUVAR fish_color_end:green
+SETUVAR fish_color_error:red
+SETUVAR fish_color_escape:brcyan
+SETUVAR fish_color_history_current:\x2d\x2dbold
+SETUVAR fish_color_host:normal
+SETUVAR fish_color_host_remote:yellow
+SETUVAR fish_color_normal:normal
+SETUVAR fish_color_operator:brcyan
+SETUVAR fish_color_param:cyan
+SETUVAR fish_color_quote:yellow
+SETUVAR fish_color_redirection:cyan\x1e\x2d\x2dbold
+SETUVAR fish_color_redirections:yellow
+SETUVAR fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
+SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
+SETUVAR fish_color_status:red
+SETUVAR fish_color_terminators:white
+SETUVAR fish_color_user:brgreen
+SETUVAR fish_color_valid_path:green
+SETUVAR fish_greeting:\x1d
+SETUVAR fish_key_bindings:fish_vi_key_bindings
+SETUVAR fish_pager_color_completion:normal
+SETUVAR fish_pager_color_description:yellow\x1e\x2di
+SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_pager_color_selected_background:\x2dr
+SETUVAR fish_user_paths:/home/ezraodyn/go/bin
