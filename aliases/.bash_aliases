@@ -124,3 +124,10 @@ alias uptime='uptime -p'
 # Print the current date and time in a human-readable format
 alias datetime='date "+%Y-%m-%d %H:%M:%S"'
 
+# show sesh tmux sessions
+alias seshi='sesh list -i'
+alias sesht='sesh list -it'
+alias seshc='sesh list -ic'
+alias seshz='sesh list -iz'
+
+
