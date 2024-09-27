@@ -5,9 +5,9 @@ config:
   icon-position: "left" # show the icon to
 
 icons:
-  gh: ""
-  gt: "󰊢"
-  nvim: " nvim"
+  gh: "" # 
+  gt: "󰊢" 
+  nvim: " " #   
   mprocs: ""
   yazi: "󰙅"
   man: ""

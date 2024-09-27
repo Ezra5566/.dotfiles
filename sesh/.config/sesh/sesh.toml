@@ -12,23 +12,24 @@ startup_command = "nvim +GoToFile"
 # tmuxinator = "~/.config/tmux/tmuxinator/joshmedeski.com.yml"
 #
 [[session]]
-name = "macmon"
+name = "󱚟  tf"
 path = "~/"
-startup_command = "macmon"
+startup_command = "ls"
+style = "bold,green"
 
 [[session]]
-name = "update"
-path = "/tmp"
+name = "󰚰 update"
+path = "~/"
 startup_command = "update"
 
 
 [[session]]
-name = "aerospace config"
-path = "~/c/dotfiles/.config/aerospace"
-startup_command = "nvim aerospace.toml"
+name = "  project"
+path = "~/projects/"
+startup_command = "ls"
 
 [[session]]
-name = "ghostty config"
+name = " config"
 path = "~/c/dotfiles/.config/ghostty"
 startup_command = "nvim config"
 
@@ -43,29 +44,29 @@ path = "~"
 startup_command = "l"
 
 [[session]]
-name = "Code 💻"
-path = "~/c"
+name = "󱘓 notes"
+path = "~/notes/"
 startup_command = "l"
 
 [[session]]
-name = "tmux config"
+name = " tmux config"
 path = "/.config/tmux"
 # tmuxp = "~/c/dotfiles/.config/tmux/tmuxp-tmux.yml"
 # tmuxp = "/Users/joshmedeski/c/dotfiles/.config/tmux/tmuxp-tmux.yml"
 startup_command = "nvim tmux.conf"
 
 [[session]]
-name = "gitmux config"
+name = " gitmux config"
 path = "~/.config/tmux"
 startup_command = "nvim gitmux.conf"
 
 [[session]]
-name = "neovim config"
+name = " neovim config"
 path = "~/.config/nvim"
 
 [[session]]
-name = "fish config"
-path = "~/c/dotfiles/.config/fish"
+name = " fish config"
+path = "~/.config/fish/"
 startup_command = "nvim config.fish"
 
  # [[session]]
@@ -78,12 +79,11 @@ startup_command = "nvim config.fish"
 # path = "~/c/dotfiles/.config/wezterm"
 # startup_command = "nvim wezterm.lua"
 
-[[session]]
-name = "nutiliti new worktree"
-path = "~/c/nu"
-# TODO: auto-close this session when the worktree has been created successfully?  
-# TODO: append [[session]] ./nu/{name}/package/* to this config for dev mode bonus
-startup_commad = "nu_new_worktree"
+ # [[session]]
+ # name = "nutiliti new worktree"
+ # path = "~/c/nu"
+ # # TODO: auto-close this session when the worktree has been created successfully?  
+ # # TODO: append [[session]] ./nu/{name}/package/* to this config for dev mode bonus
 
 [[session]]
 name = "second brain 🧠"
