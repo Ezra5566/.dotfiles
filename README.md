@@ -236,4 +236,42 @@ Note: AppImage requires FUSE to run. If you encounter issues, you may need to in
 
    added a few new features like tmux
 
-  
+  how it looks like
+```
+tree -L3 -a -I '.git'
+.
+├── aliases
+│   └── .bash_aliases
+├── bashrc
+│   └── .bashrc
+├── bck_install.sh
+├── fastfetch
+│   └── .config
+│       └── fastfetch
+├── fish
+│   └── .config
+│       └── fish
+├── lazygit
+│   └── .config
+│       └── lazygit
+├── nvim
+│   └── .config
+│       └── nvim
+├── README.md
+├── sesh
+│   └── .config
+│       └── sesh
+├── starship
+│   └── .config
+│       └── starship.toml
+├── superfile
+│   └── .config
+│       └── superfile
+├── tmux
+│   └── .config
+│       └── tmux
+└── vim
+    └── .vimrc
+
+27 directories, 6 files
+```

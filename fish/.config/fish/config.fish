@@ -17,7 +17,8 @@ starship init fish | source # https://starship.rs/
 zoxide init fish | source # 'ajeetdsouza/zoxide'
 atuin init fish | source
 
-set -U fish_greeting # disable fish greeting
+set -U fish_greeting
+   echo you switched to fish ezz 
 set -U fish_key_bindings fish_vi_key_bindings
 # set -U LANG en_US.UTF-8
 # set -U LC_ALL en_US.UTF-8
