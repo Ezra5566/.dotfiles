@@ -5,6 +5,8 @@ config:
   icon-position: "left" # show the icon to
 
 icons:
+  fzf: " "
+  python3: " "
   fish: " "
   btop: ""
   gh: "" # 

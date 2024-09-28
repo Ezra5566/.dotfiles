@@ -1,7 +1,7 @@
 # More details are at https://superfile.netlify.app/configure/superfile-config/
 #
 # change your theme
-theme = 'catppuccin-macchiato'
+theme = 'gruvbox'
 # 
 # Auto check for update
 auto_check_update = true

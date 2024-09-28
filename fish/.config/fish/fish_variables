@@ -1,7 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export EDITOR:nvim
-SETUVAR --export FZF_DEFAULT_COMMAND:fd\x20\x2dH\x20\x2dE\x20\x27\x2egit\x27
+SETUVAR --export FZF_DEFAULT_COMMAND:find\x20\x2dH\x20\x2dE\x20\x27\x2egit\x27
 SETUVAR --export FZ_HIGHLIGHT:green
 SETUVAR --export FZ_PROMPT:\uf054\x20
 SETUVAR --export FZ_VI_MODE:true

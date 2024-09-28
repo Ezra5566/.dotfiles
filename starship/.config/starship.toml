@@ -6,7 +6,7 @@
 
 # === Prompt-wide configurations ===
 
- palette = 'catppuccin_mocha'  # 'cyberpunk'/'catppuccin_latte'/'catppuccin_mocha'/'catppuccin_frappe'/'catppuccin_macchiato'
+ palette = 'gruvpunk'  # gruvpunk'cyberpunk'/'catppuccin_latte'/'catppuccin_mocha'/'catppuccin_frappe'/'catppuccin_macchiato'
 
 command_timeout = 1500       # Default timeout for commands is 500ms
 
@@ -199,9 +199,9 @@ style = "bold green"
 
 [cmd_duration]
 
-min_time = 0
+# min_time = 0
 format = "[  $duration]($style)"
-show_milliseconds = true
+show_milliseconds = false
 style = "flamingo"
 
 
@@ -374,37 +374,35 @@ format = "[$symbol$workspace]($style) "
 
 
 
+[palettes.gruvpunk]
 
-# === Colour palettes ===
+rosewater = "#f2d5cf"  # Soft light pink with a hint of brown
+flamingo = "#d3869b"   # Muted purple-pink with warmth
+pink = "#d4879c"       # Slightly subdued pink
+mauve = "#b16286"      # Warm mauve with a gruv feel
+red = "#fb4934"        # Warm Gruvbox red
+maroon = "#cc241d"     # Deep, rich maroon
+peach = "#fabd2f"      # Gruvbox vibrant peach
+yellow = "#d79921"     # Golden yellow
+green = "#b8bb26"      # Warm earthy green
+teal = "#83a598"       # Muted teal
+sky = "#8ec07c"        # Light greenish-cyan
+sapphire = "#458588"   # Deep gruv blue-green
+blue = "#83a598"       # Muted vibrant blue
+lavender = "#d3869b"   # Gruvbox-inspired lavender-pink
+text = "#ebdbb2"       # Light text with a warm tone
+subtext1 = "#d5c4a1"   # Warmer light gray
+subtext0 = "#bdae93"   # Soft medium gray
+overlay2 = "#a89984"   # Earthy gray
+overlay1 = "#928374"   # Muted dark gray
+overlay0 = "#665c54"   # Darker warm gray
+surface2 = "#3c3836"   # Warm dark brown
+surface1 = "#282828"   # Gruvbox dark gray
+surface0 = "#1d2021"   # Very dark gray-brown
+base = "#1b1d1e"       # Almost black with a warm undertone
+mantle = "#1a1a1a"     # Dark neutral tone
+crust = "#131313"      # Black with a slight warm hue
 
-[palettes.catppuccin_latte]
-
-rosewater = "#dc8a78"
-flamingo = "#dd7878"
-pink = "#ea76cb"
-mauve = "#8839ef"
-red = "#d20f39"
-maroon = "#e64553"
-peach = "#fe640b"
-yellow = "#df8e1d"
-green = "#40a02b"
-teal = "#179299"
-sky = "#04a5e5"
-sapphire = "#209fb5"
-blue = "#1e66f5"
-lavender = "#7287fd"
-text = "#4c4f69"
-subtext1 = "#5c5f77"
-subtext0 = "#6c6f85"
-overlay2 = "#7c7f93"
-overlay1 = "#8c8fa1"
-overlay0 = "#9ca0b0"
-surface2 = "#acb0be"
-surface1 = "#bcc0cc"
-surface0 = "#ccd0da"
-base = "#eff1f5"
-mantle = "#e6e9ef"
-crust = "#dce0e8"
 
 
 

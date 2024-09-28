@@ -2,7 +2,7 @@ return {
   -- Default colorscheme (gruvbox)
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = true, -- Load on startup
+    lazy = false, -- Load on startup
     priority = 1000, -- Make sure it's loaded first
     keys = {
       { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
@@ -14,7 +14,7 @@ return {
           String = { italic = false },
         },
       })
-      -- vim.cmd("colorscheme gruvbox") -- Uncomment to set as default
+      vim.cmd("colorscheme gruvbox") -- Uncomment to set as default
     end,
   },
 
@@ -22,7 +22,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    lazy = false,
+    lazy = true,
     keys = {
       { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
     },
@@ -30,7 +30,7 @@ return {
       require("catppuccin").setup({
         transparent_background = true,
       })
-      vim.cmd("colorscheme catppuccin") -- Uncomment to set as default
+      -- vim.cmd("colorscheme catppuccin") -- Uncomment to set as default
     end,
   },
 
@@ -59,7 +59,6 @@ return {
       -- vim.cmd("colorscheme sonokai") -- Uncomment to set as default
     end,
   },
-
   -- -------------------------Extra colorscheme: edge -----------------------------
   {
     "sainnhe/edge",
@@ -98,7 +97,7 @@ return {
     "0xstepit/flow.nvim",
     lazy = true,
     keys = {
-      { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
+      { "<leader>cl", "<cmd>Telescope colorcheme<cr>", desc = "Select Colorscheme with Preview" },
     },
     config = function()
       require("flow").setup({
@@ -110,6 +109,23 @@ return {
         aggressive_spell = false,
       }) -- Use colors for spell check.
       -- vim.cmd("colorscheme flow") -- Uncomment to set as default
+    end,
+  },
+  {
+    "cpea2506/one_monokai.nvim",
+    lazy = true,
+    keys = {
+      { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
+    },
+    config = function()
+      require("one_monokai").setup({
+        transparent = true, -- Enable transparent background
+        italic_comments = true, -- Enable italic comment
+        disable_italics = false, -- Disable italic for italic comments
+        bold = true, -- Enable bold font
+        italic = true, -- Enable italic font
+      })
+      -- vim.cmd("colorscheme one_monokai") -- Uncomment to set as default
     end,
   },
 }
