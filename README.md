@@ -236,8 +236,4 @@ Note: AppImage requires FUSE to run. If you encounter issues, you may need to in
 
    added a few new features like tmux
 
-   ![**catpuccin** style](./images/catpuccin.png)
-   > my catpuccin config
-
-   ![gruvbox/ayu /**dark** style](./images/gruvbox.png)
-   > my default config
+  
