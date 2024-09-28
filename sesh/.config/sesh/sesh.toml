@@ -24,14 +24,14 @@ startup_command = "update"
 
 
 [[session]]
-name = "  project"
+name = "  projects"
 path = "~/projects/"
 startup_command = "ls"
 
 [[session]]
 name = " config"
-path = "~/c/dotfiles/.config/ghostty"
-startup_command = "nvim config"
+path = "~/.config/nvim/"
+startup_command = "nvim"
 
 [[session]]
 name = "nutiliti reviews"
@@ -41,12 +41,12 @@ startup_command = "gh dash"
 [[session]]
 name = "Home 🏡"
 path = "~"
-startup_command = "l"
+startup_command = "pwd"
 
 [[session]]
 name = "󱘓 notes"
 path = "~/notes/"
-startup_command = "l"
+startup_command = "ls"
 
 [[session]]
 name = " tmux config"
@@ -56,16 +56,16 @@ path = "/.config/tmux"
 startup_command = "nvim tmux.conf"
 
 [[session]]
-name = " gitmux config"
+name = "gitmux config"
 path = "~/.config/tmux"
 startup_command = "nvim gitmux.conf"
 
 [[session]]
-name = " neovim config"
+name = "neovim config"
 path = "~/.config/nvim"
 
 [[session]]
-name = " fish config"
+name = "fish config"
 path = "~/.config/fish/"
 startup_command = "nvim config.fish"
 
@@ -109,7 +109,7 @@ name = "blog posts"
 path = "~/notes/"
 
 [[session]]
-path = "~/c/joshmedeski.com"
+path = "~/joshmedeski.com"
 startup_script = "~/.config/sesh/scripts/node_dev"
 
 [[session]]
@@ -127,8 +127,8 @@ startup_command = "nvim fzf-url.sh"
 
 [[session]]
 name = "Downloads 📥"
-path = "~/Downloads"
-# startup_command = "yazi"
+path = "~/"
+startup_command = "spf"
 
 [[session]]
 name = "lazy plugins"
