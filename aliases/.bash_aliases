@@ -1,6 +1,6 @@
 # ~/aliases.sh
 
-# Fuzzy Search Through Command History
+# Fuzzy Search Through Command History 
 alias fh='eval $(history | fzf | cut -d " " -f 4-)'
 
 # Fuzzy Search Through Files in a Directory
