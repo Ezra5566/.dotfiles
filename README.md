@@ -56,6 +56,7 @@ Customize your `starship.toml` as needed.
 ### Installing Dependencies
 
 ```bash
+
 # Install essential tools for development, cybersecurity, and terminal customization
 sudo apt update && sudo apt install -y \
   fzf \
@@ -78,7 +79,6 @@ sudo apt update && sudo apt install -y \
   python3 \
   python3-pip \
   xclip \
-  lazygit \
   openssh-client
 ```
 
@@ -195,17 +195,17 @@ This guide will walk you through the process of installing Neovim (including the
 ### AppImage (Linux)
 
 1. Download the latest Neovim AppImage:
-   ```
+   ```bash
    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
    ```
 
 2. Make the AppImage executable:
-   ```
+   ```bash
    chmod u+x nvim.appimage
    ```
 
 3. Move the AppImage to a directory in your PATH, for example:
-   ```
+   ```bash
    sudo mv nvim.appimage /usr/local/bin/nvim
    ```
 
@@ -218,7 +218,7 @@ Note: AppImage requires FUSE to run. If you encounter issues, you may need to in
 
 1. Install FUSE:
      [NOTE] remener to install fuse before installation even though not necessary
-   ```
+   ```bash
    sudo apt install fuse
    ```
 ## Making Neovim Global
@@ -230,15 +230,15 @@ Note: AppImage requires FUSE to run. If you encounter issues, you may need to in
    what are you copying?? you already moved it to ...
    ```
 2. Reload your shell configuration:
-   ```
+   ```bash
    source ~/.bashrc
+
    ```
 
    added a few new features like tmux
 
   how it looks like
-```
-tree -L3 -a -I '.git'
+```bash
 .
 ├── aliases
 │   └── .bash_aliases
