@@ -1,6 +1,5 @@
 Here’s an updated version of the `README.md` that includes Git and GitHub setup, along with installing all dependencies mentioned in previous conversations:
 
-```markdown
 # .dotfiles
 
 This repository contains my configuration files for setting up a development and cybersecurity environment on a Chromebook using Kali Linux. Below is a breakdown of my setup process and configuration.
@@ -14,6 +13,7 @@ I initially set up Kali Linux on my Chromebook, which uses Debian (Bookworm) by 
 ```bash
 # 1. Edit the sources list to include Kali repositories
 sudo vim /etc/apt/sources.list
+
 ```
 
 Change the contents to:
@@ -274,4 +274,5 @@ Note: AppImage requires FUSE to run. If you encounter issues, you may need to in
     └── .vimrc
 
 27 directories, 6 files
+
 ```
