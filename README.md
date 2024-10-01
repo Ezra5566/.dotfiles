@@ -176,7 +176,14 @@ mkdir -p ~/.local/bin
 ln -s /usr/bin/batcat ~/.local/bin/bat
 ```
 
+### configure zen-browser (***best browser ever blud***)
+
+```bash
+bash <(curl https://updates.zen-browser.app/appimage.sh)
+```    
+
 ### Git Configuration
+
 Set up individual git configurations based on your personal preferences.
 
 ---

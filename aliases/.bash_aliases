@@ -118,6 +118,9 @@ alias update='sudo nala update && sudo nala upgrade'
 # Check and repair file system (requires sudo)
 alias fsck='sudo fsck'
 
+#show all symlinks in current directory
+alias sl='ls -l -a   | grep "\->"'
+
 # Print the current system uptime
 alias uptime='uptime -p'
 
