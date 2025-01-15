@@ -23,14 +23,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- Your existing setup...
 
--- Modify the lazy.nvim setup
 -- Lazy.nvim setup
 require("lazy").setup({
   { import = "plugins" }, -- Import your plugin configurations
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } }, -- Telescope plugin with dependencies
 }, {
   install = {
-    colorscheme = { "gruvbox", "catppuccin" },
+    colorscheme = { "catppuccin", "gruvbox" },
   },
   ui = {
     border = "rounded",
@@ -50,12 +49,12 @@ require("lazy").setup({
 })
 
 -- Check for Telescope status
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  print("Failed to load Telescope: " .. telescope)
-else
-  print("Telescope loaded successfully")
-end
+-- local status_ok, telescope = pcall(require, "telescope")
+-- if not status_ok then
+-- print("Failed to load Telescope: " .. telescope)
+-- else
+-- print("Telescope loaded successfully")
+-- end
 
 -- Prevent lazy.nvim from showing reload warning
 vim.g.lazy_show_reload_warning = false
