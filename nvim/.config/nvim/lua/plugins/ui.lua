@@ -473,7 +473,7 @@ return {
 
       dashboard.section.buttons.val = {
         util.button("n", " " .. " New file", "<cmd> enew <cr>"),
-        util.button("ctrl + p", " " .. " Find file", "<cmd> Telescope find_files <cr>"),
+        util.button("󱁐 + f + f", " " .. " Find file", "<cmd> Telescope find_files <cr>"),
         util.button("q", " " .. " Quit", "<cmd> qa <cr>"),
       }
 
@@ -546,25 +546,25 @@ return {
       -------------------------
     },
 
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      {
-        "rcarriga/nvim-notify",
-        event = "VeryLazy",
-        opts = {
-          timeout = 1200,
-          render = "wrapped-compact",
-        },
-        config = function(_, opts)
-          -- Set up nvim-notify with the provided options and a transparent background
-          require("notify").setup(vim.tbl_deep_extend("force", {
-            background_colour = "#00000000", -- Fully transparent background
-          }, opts))
+    -- dependencies = {
+    --  "MunifTanjim/nui.nvim",
+    -- {
+    --  "rcarriga/nvim-notify",
+    -- event = "VeryLazy",
+    -- opts = {
+    --  timeout = 1200,
+    --  render = "wrapped-compact",
+    --},
+    --config = function(_, opts)
+    -- Set up nvim-notify with the provided options and a transparent background
+    -- require("notify").setup(vim.tbl_deep_extend("force", {
+    --  background_colour = "#00000000", -- Fully transparent background
+    --}, opts))
 
-          -- Replace the default vim.notify function with nvim-notify
-          vim.notify = require("notify")
-        end,
-      },
-    },
+    -- Replace the default vim.notify function with nvim-notify
+    --vim.notify = require("notify")
+    --end,
+    -- },
+    -- },
   },
 }

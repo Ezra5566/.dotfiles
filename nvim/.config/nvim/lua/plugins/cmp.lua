@@ -291,8 +291,8 @@ return {
         suggestion = {
           auto_trigger = true,
           keymap = {
-            accept = "<Down>",
-            accept_line = "<Right>",
+            -- accept = "<Down>",
+            -- accept_line = "<Right>",
             next = "<M-j>",
             prev = "<M-k>",
           },
