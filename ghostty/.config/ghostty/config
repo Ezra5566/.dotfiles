@@ -1,0 +1,5 @@
+theme = "light:FirefoxDev,dark:FirefoxDev"
+font-family = "JetBrains Mono"
+background-opacity = 0.8
+background-blur = true
+
