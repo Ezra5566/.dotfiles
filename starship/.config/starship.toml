@@ -6,7 +6,7 @@
 
 # === Prompt-wide configurations ===
 
- palette = 'gruvpunk'  # gruvpunk'cyberpunk'/'catppuccin_latte'/'catppuccin_mocha'/'catppuccin_frappe'/'catppuccin_macchiato'
+ palette = 'catppuccin_macchiato'  # gruvpunk'cyberpunk'/'catppuccin_latte'/'catppuccin_mocha'/'catppuccin_frappe'/'catppuccin_macchiato'
 
 command_timeout = 1500       # Default timeout for commands is 500ms
 
