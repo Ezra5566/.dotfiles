@@ -9,7 +9,8 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     dependencies = {
-      "Exafunction/codeium.vim", -- Codeium plugin
+      "sudo-tee/opencode.nvim",
+      ---- "Exafunction/codeium.vim", -- Codeium plugin
       ----    "github/copilot.vim", -- Copilot plugin
     },
     config = function()
@@ -144,13 +145,13 @@ return {
       })
 
       -- Add Codeium component
-      ins_left({
-        function()
-          local codeium_status = vim.fn["codeium#GetStatusString"]() or "No Codeium"
-          return " Codeium: " .. codeium_status
-        end,
-        color = { fg = colors.cyan, gui = "bold" },
-      })
+      -- ins_left({
+      --function()
+      --local codeium_status = vim.fn["codeium#GetStatusString"]() or "No Codeium"
+      -- return " Codeium: " .. codeium_status
+      --end,
+      -- color = { fg = colors.cyan, gui = "bold" },
+      -- })
 
       -- Add Copilot component
       --  ins_left({
@@ -163,6 +164,29 @@ return {
       --   color = { fg = colors.blue, gui = "bold" },
       -- })
       -- LSP status component
+      -- Add OpenCode component
+      -- Add OpenCode component
+      ins_left({
+        function()
+          local ok, opencode = pcall(require, "opencode")
+          if not ok then
+            return " OpenCode: Off"
+          end
+
+          local enabled = false
+          if opencode.is_enabled then
+            enabled = opencode.is_enabled()
+          end
+
+          if enabled then
+            return " OpenCode: On"
+          else
+            return " OpenCode: Off"
+          end
+        end,
+        color = { fg = colors.cyan, gui = "bold" },
+      })
+
       ins_left({
         function()
           local msg = "No Active Lsp"
