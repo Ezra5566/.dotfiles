@@ -1,5 +1,11 @@
-theme = "Cursor Dark"
-font-family = "JetBrains Mono"
+# theme = "TokyoNight"
+ theme = "Raycast Dark"
+# theme = "Material Ocean"
+# theme = "Monokai Pro Spectrum"
+
+font-family = "SpaceMono Nerd Font"
 background-opacity = 0.8
 background-blur = true
 
+font-size = 15
+mouse-hide-while-typing = true

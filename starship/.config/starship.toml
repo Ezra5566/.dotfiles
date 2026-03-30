@@ -6,7 +6,7 @@
 
 # === Prompt-wide configurations ===
 
- palette = 'catppuccin_macchiato'  # gruvpunk'cyberpunk'/'catppuccin_latte'/'catppuccin_mocha'/'catppuccin_frappe'/'catppuccin_macchiato'
+ palette = 'cyberpunk'  # gruvpunk'cyberpunk'/'catppuccin_latte'/'catppuccin_mocha'/'catppuccin_frappe'/'catppuccin_macchiato'
 
 command_timeout = 1500       # Default timeout for commands is 500ms
 
@@ -113,8 +113,8 @@ disabled = false
 
 [directory]
 
-truncation_symbol = "…/" # " "
-home_symbol = " ~ "# ~  
+truncation_symbol = "   " #"…/      
+home_symbol = " ~ " #" ~ "  
 truncate_to_repo = false
 truncation_length = 0
 style = "bold cyan"
@@ -134,7 +134,7 @@ style = "bold cyan"
 
 [git_branch]
 
-symbol = " "
+symbol = "  "
 format = '[on](text dimmed) [$symbol$branch(:$remote_branch)]($style) '
 style = "bold green"
 
@@ -538,7 +538,7 @@ crust = "#0b0c0f"      # Blackest black
  [os.symbols]
 
 # Alpine = " "
-# Arch = " "
+Arch = " "
 # CentOS = " "
  # Debian = " "
 # Fedora = " "
@@ -555,6 +555,6 @@ crust = "#0b0c0f"      # Blackest black
 # Linux = " "
 # Windows = " "
 # AlmaLinux = " "
-Kali = " "
+# Kali = " "
 # Unknown = " "
 
