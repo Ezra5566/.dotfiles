@@ -88,10 +88,10 @@ local function lspconfig_setup()
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
+  ----- blooddy quick fix 2026 -----------
   local setup_server = function(server, config)
     if not config then
-      return
+      config = {}
     end
 
     if type(config) ~= "table" then
@@ -102,7 +102,9 @@ local function lspconfig_setup()
       capabilities = capabilities,
     }, config)
 
-    require("lspconfig")[server].setup(config)
+    -- NEW API
+    vim.lsp.config(server, config)
+    vim.lsp.enable(server)
   end
 
   local servers = require("plugins.lsp.langueage_servers")
