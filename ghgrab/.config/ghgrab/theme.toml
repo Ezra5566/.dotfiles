@@ -1,0 +1,15 @@
+# Gruvbox Dark (Transparent-friendly)
+
+bg_color = "#282828"       # Base background (works well with terminal transparency)
+fg_color = "#ebdbb2"       # Light foreground text
+
+accent_color = "#83a598"   # Aqua (primary accents)
+warning_color = "#fabd2f"  # Yellow
+error_color = "#fb4934"    # Red
+success_color = "#b8bb26"  # Green
+
+folder_color = "#83a598"   # Aqua for folders
+selected_color = "#fe8019" # Orange selection
+
+border_color = "#504945"   # Subtle dark gray borders
+highlight_bg = "#3c3836"   # Slightly raised background

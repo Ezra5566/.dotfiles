@@ -1,11 +1,49 @@
 # theme = "TokyoNight"
- theme = "Raycast Dark"
+#theme = "Ayu"
+
+#theme = "Raycast Dark"
 # theme = "Material Ocean"
 # theme = "Monokai Pro Spectrum"
+macos-titlebar-style = hidden
+#font-family = "SpaceMono Nerd Font"
+font-family = "Maple Mono NF CN"
+#font-family = "DankMono Nerd Font"
 
-font-family = "SpaceMono Nerd Font"
-background-opacity = 0.8
-background-blur = true
-
-font-size = 15
+#background-opacity = 0.9
+#background-blur = true
+custom-shader = shaders/cursor_smear.glsl
+#---------------------------------------------------
+#font-size = 16
 mouse-hide-while-typing = true
+# Font
+#font-family = "Maple Mono NF CN"
+font-size = 15
+font-thicken = true
+adjust-cell-height = 30%
+
+# Theme
+theme = Monokai Pro Spectrum
+background-opacity = 0.9
+background-blur-radius = 20
+minimum-contrast = 1.1
+
+# Window
+window-padding-x = 14
+window-padding-y = 10
+window-decoration = true
+#macos-titlebar-style = tabs
+window-save-state = always
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = cursor,sudo,title
+
+# Clipboard
+copy-on-select = clipboard
+
+# Mouse
+mouse-hide-while-typing = true
+
+# Splits
+confirm-close-surface = false

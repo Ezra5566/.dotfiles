@@ -1,0 +1,132 @@
+{
+  "version": 3,
+  "workspaces": [
+    {
+      "id": "wR",
+      "custom_name": "Main_WORKSPACE",
+      "identity_cwd": "/Users/ezra/.config",
+      "public_pane_numbers": {
+        "35": 10,
+        "26": 1,
+        "31": 6
+      },
+      "next_public_pane_number": 14,
+      "public_tab_numbers": [
+        1
+      ],
+      "next_public_tab_number": 4,
+      "tabs": [
+        {
+          "custom_name": "PI_fix",
+          "layout": {
+            "Split": {
+              "direction": "Horizontal",
+              "ratio": 0.50753766,
+              "first": {
+                "Pane": 26
+              },
+              "second": {
+                "Split": {
+                  "direction": "Vertical",
+                  "ratio": 0.47058824,
+                  "first": {
+                    "Pane": 31
+                  },
+                  "second": {
+                    "Pane": 35
+                  }
+                }
+              }
+            }
+          },
+          "panes": {
+            "35": {
+              "cwd": "/Users/ezra/.config/herdr"
+            },
+            "31": {
+              "cwd": "/Users/ezra/.config/herdr"
+            },
+            "26": {
+              "cwd": "/Users/ezra/.config",
+              "agent_session": {
+                "source": "herdr:pi",
+                "agent": "pi",
+                "kind": "path",
+                "value": "/Users/ezra/.pi/agent/sessions/--Users-ezra-.config--/2026-08-02T11-57-03-530Z_019fc255-b0aa-7589-ab61-d6f0c5186a35.jsonl"
+              }
+            }
+          },
+          "zoomed": false,
+          "focused": 35,
+          "root_pane": 26
+        }
+      ],
+      "active_tab": 0
+    },
+    {
+      "id": "wT",
+      "custom_name": "Dots",
+      "identity_cwd": "/Users/ezra/.dotfiles",
+      "public_pane_numbers": {
+        "42": 2
+      },
+      "next_public_pane_number": 5,
+      "public_tab_numbers": [
+        1
+      ],
+      "next_public_tab_number": 2,
+      "tabs": [
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 42
+          },
+          "panes": {
+            "42": {
+              "cwd": "/Users/ezra/.dotfiles"
+            }
+          },
+          "zoomed": false,
+          "focused": 42,
+          "root_pane": 42
+        }
+      ],
+      "active_tab": 0
+    },
+    {
+      "id": "wV",
+      "custom_name": "Projects",
+      "identity_cwd": "/Users/ezra/.config",
+      "public_pane_numbers": {
+        "38": 1
+      },
+      "next_public_pane_number": 3,
+      "public_tab_numbers": [
+        1
+      ],
+      "next_public_tab_number": 2,
+      "tabs": [
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 38
+          },
+          "panes": {
+            "38": {
+              "cwd": "/Users/ezra/.config"
+            }
+          },
+          "zoomed": false,
+          "focused": 38,
+          "root_pane": 38
+        }
+      ],
+      "active_tab": 0
+    }
+  ],
+  "active": 1,
+  "selected": 1,
+  "sidebar_width": 26,
+  "sidebar_section_split": 0.5,
+  "collapsed_space_keys": []
+}
