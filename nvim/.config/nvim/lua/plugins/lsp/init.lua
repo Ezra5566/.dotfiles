@@ -1,41 +1,43 @@
 local function lsp_related_ui_adjust()
-  require("lspconfig.ui.windows").default_options.border = "rounded"
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-
-  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-  end
+  -- Floating window borders (hover, signature help, diagnostics, ...) come from
+  -- the global 'winborder' option now — vim.lsp.with() was removed in Nvim 0.12.
 
   vim.diagnostic.config({
     virtual_text = {
       prefix = "●",
-      severity_sort = true,
     },
     float = {
       border = "rounded",
-      source = "always", -- Or "if_many"
+      source = true,
       prefix = " - ",
     },
     severity_sort = true,
     signs = {
-      linehl = { "DiagnosticErrorLn", "DiagnosticWarnLn", "DiagnosticInfoLn", "DiagnosticHintLn" },
+      text = {
+        [vim.diagnostic.severity.ERROR] = "",
+        [vim.diagnostic.severity.WARN] = "",
+        [vim.diagnostic.severity.HINT] = "",
+        [vim.diagnostic.severity.INFO] = "",
+      },
     },
   })
 end
 
 local function lspconfig_setup()
   vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("LspKeymapsAndHints", { clear = true }),
     callback = function(args)
       local bufnr = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
 
       local opts = { buffer = bufnr }
 
-      vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, opts)
-      vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, opts)
+      vim.keymap.set("n", "<leader>dn", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+      end, opts)
+      vim.keymap.set("n", "<leader>dp", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+      end, opts)
       vim.keymap.set("n", "<leader>dd", vim.diagnostic.open_float, opts)
       vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
       vim.keymap.set({ "i", "n" }, "<C-s>", vim.lsp.buf.signature_help, opts)
@@ -67,12 +69,8 @@ local function lspconfig_setup()
         end,
       })
 
-      -- The following two autocommands are used to highlight references of the
-      -- word under your cursor when your cursor rests there for a little while.
-      --    See `:help CursorHold` for information about when this is executed
-      --
-      -- When you move your cursor, the highlights will be cleared (the second autocommand).
-      if client and client.server_capabilities.documentHighlightProvider then
+      -- Highlight references of the word under your cursor while it rests there.
+      if client and client:supports_method("textDocument/documentHighlight") then
         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
           buffer = bufnr,
           callback = vim.lsp.buf.document_highlight,
@@ -82,18 +80,28 @@ local function lspconfig_setup()
           buffer = bufnr,
           callback = vim.lsp.buf.clear_references,
         })
+
+        vim.api.nvim_create_autocmd("LspDetach", {
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.clear_references()
+          end,
+        })
       end
     end,
   })
 
+  -- blink.cmp advertises the snippet/completion capabilities of the client
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-  ----- blooddy quick fix 2026 -----------
-  local setup_server = function(server, config)
-    if not config then
-      config = {}
-    end
+  local blink_ok, blink = pcall(require, "blink.cmp")
+  if blink_ok then
+    capabilities = vim.tbl_deep_extend("force", capabilities, blink.get_lsp_capabilities())
+  end
 
+  ---Register a server through the native vim.lsp.config()/vim.lsp.enable() API
+  ---@param server string lspconfig name (e.g. "lua_ls")
+  ---@param config table|nil extra config merged on top of nvim-lspconfig defaults
+  local setup_server = function(server, config)
     if type(config) ~= "table" then
       config = {}
     end
@@ -102,24 +110,15 @@ local function lspconfig_setup()
       capabilities = capabilities,
     }, config)
 
-    -- NEW API
     vim.lsp.config(server, config)
     vim.lsp.enable(server)
   end
 
-  local servers = require("plugins.lsp.langueage_servers")
+  local servers = require("plugins.lsp.language_servers")
   for server, setting in pairs(servers) do
-    if setting.disabled then
-      goto continue
+    if not setting.disabled then
+      setup_server(server, setting.config or {})
     end
-
-    if setting.config ~= nil then
-      setup_server(server, setting.config)
-    else
-      setup_server(server, {})
-    end
-
-    ::continue::
   end
 end
 
@@ -129,27 +128,26 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-
-      -- for develop neovim
-      {
-        "folke/neodev.nvim",
-        config = function()
-          require("neodev").setup()
-        end,
-      },
-
       -- managing tool
-      { "williamboman/mason.nvim" },
+      { "mason-org/mason.nvim" },
 
-      -- bridges mason with the lspconfig
-      { "williamboman/mason-lspconfig.nvim" },
-
-      -- nvim-cmp source for neovim's built-in LSP
-      { "hrsh7th/cmp-nvim-lsp" },
+      -- nvim-cmp/blink source for neovim's built-in LSP (capabilities)
+      { "saghen/blink.cmp" },
     },
     config = function()
       lsp_related_ui_adjust()
       lspconfig_setup()
     end,
+  },
+
+  -- faster LuaLS setup for editing your Neovim config (replaces neodev.nvim)
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "{3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
   },
 }

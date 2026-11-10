@@ -32,6 +32,8 @@ opt.termguicolors = true -- true color
 opt.background = "dark"
 opt.cursorline = true
 -- opt.pumblend = 10 -- transparency for popup-menu
+-- Rounded borders for floating windows (LSP hover, diagnostics, pickers, ...)
+opt.winborder = "rounded"
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "None" }) -- the line background between two windows
 
 -- backspace
@@ -97,19 +99,6 @@ vim.api.nvim_create_user_command("LiveServer", function()
   end
 
   print_lines()
-
-  local live_server_lualine = function()
-    if vim.g.liveserver_bufnr ~= nil then
-      return [[󱄙]]
-    end
-    return [[]]
-  end
-
-  require("lualine").setup({
-    sections = {
-      lualine_x = { "encoding", "fileformat", "filetype", { live_server_lualine, color = { fg = "#268bd2" } } },
-    },
-  })
 end, { desc = "Start live-server in background" })
 
 -- Add "LiveServerStop" command to quick stop live-server of npm

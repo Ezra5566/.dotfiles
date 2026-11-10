@@ -4,14 +4,73 @@ return {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
   },
+
+  --------------------------------- buffer/tab line (ported from the backup)----
+  -- NOTE: <S-h>/<S-l> are intentionally NOT bound to buffers here, they are
+  -- your "start/end of line" motions in ezzdev/keymaps.lua.
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
+      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
+      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
+      { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
+      { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+      { "<leader>bj", "<cmd>BufferLinePick<cr>", desc = "Pick Buffer" },
+    },
+    opts = {
+      options = {
+        -- stylua: ignore
+        close_command = function(n) Snacks.bufdelete(n) end,
+        -- stylua: ignore
+        right_mouse_command = function(n) Snacks.bufdelete(n) end,
+        diagnostics = "nvim_lsp",
+        always_show_bufferline = false,
+        diagnostics_indicator = function(_, _, diag)
+          local icons = { Error = " ", Warn = " " }
+          local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+            .. (diag.warning and icons.Warn .. diag.warning or "")
+          return vim.trim(ret)
+        end,
+        offsets = {
+          { filetype = "snacks_layout_box" },
+        },
+      },
+    },
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+      -- Fix bufferline when restoring a session
+      vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
+        callback = function()
+          vim.schedule(function()
+            pcall(nvim_bufferline)
+          end)
+        end,
+      })
+
+      -- Keep the terminal background visible through the tab line: bufferline
+      -- paints solid colours, so strip the bg from its groups and redo it on
+      -- every colorscheme change (transparency first).
+      local util = require("util")
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        group = vim.api.nvim_create_augroup("bufferline-transparency", { clear = true }),
+        callback = function()
+          util.transparentize({ "^BufferLine" })
+        end,
+      })
+      util.transparentize({ "^BufferLine" })
+    end,
+  },
   --------------------------------- status line----------------------------------------------------------------
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     dependencies = {
-      "sudo-tee/opencode.nvim",
-      ---- "Exafunction/codeium.vim", -- Codeium plugin
-      ----    "github/copilot.vim", -- Copilot plugin
+      "nvim-tree/nvim-web-devicons",
     },
     config = function()
       local colors = {
@@ -52,7 +111,7 @@ return {
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           disabled_filetypes = {
-            statusline = { "alpha" },
+            statusline = { "snacks_dashboard" },
             winbar = {},
           },
           refresh = {
@@ -75,10 +134,6 @@ return {
           lualine_c = {},
           lualine_x = {},
         },
-        extensions = {
-          "neo-tree",
-          "nvim-dap-ui",
-        },
       }
 
       local function ins_left(component)
@@ -88,8 +143,6 @@ return {
       local function ins_right(component)
         table.insert(config.sections.lualine_x, component)
       end
-
-      -- Custom components for Lualine
 
       ins_left({
         function()
@@ -102,14 +155,14 @@ return {
       ins_left({
         function()
           local mode_icons = {
-            n = "", -- Normal mode icon
-            i = "", -- Insert mode icon
+            n = "", -- Normal mode icon
+            i = "", -- Insert mode icon
             v = "󰃤", -- Visual mode icon
-            [""] = "󰃤", -- Visual block mode icon
+            ["\22"] = "󰃤", -- Visual block mode icon
             V = "󰃤", -- Visual line mode icon
-            c = "", -- Command mode icon
+            c = "", -- Command mode icon
           }
-          return mode_icons[vim.fn.mode()] or "" -- Default icon
+          return mode_icons[vim.fn.mode()] or "" -- Default icon
         end,
         color = function()
           local mode_color = {
@@ -130,7 +183,7 @@ return {
       ins_left({
         "diagnostics",
         sources = { "nvim_diagnostic" },
-        symbols = { error = " ", warn = " ", info = " " },
+        symbols = { error = " ", warn = " ", info = " " },
         diagnostics_color = {
           color_error = { fg = colors.red },
           color_warn = { fg = colors.yellow },
@@ -144,33 +197,12 @@ return {
         end,
       })
 
-      -- Add Codeium component
-      -- ins_left({
-      --function()
-      --local codeium_status = vim.fn["codeium#GetStatusString"]() or "No Codeium"
-      -- return " Codeium: " .. codeium_status
-      --end,
-      -- color = { fg = colors.cyan, gui = "bold" },
-      -- })
-
-      -- Add Copilot component
-      --  ins_left({
-      --    function()
-      --     -- Copilot status check using Copilot plugin API
-      --     local copilot_status = vim.fn["copilot#GetStatus"]() or "No Copilot"
-      --     local copilot_status_text = copilot_status == "enabled" and "Copilot On" or "Copilot Off"
-      --     return " " .. copilot_status_text
-      --   end,
-      --   color = { fg = colors.blue, gui = "bold" },
-      -- })
-      -- LSP status component
-      -- Add OpenCode component
-      -- Add OpenCode component
+      -- OpenCode component
       ins_left({
         function()
           local ok, opencode = pcall(require, "opencode")
           if not ok then
-            return " OpenCode: Off"
+            return " OpenCode: Off"
           end
 
           local enabled = false
@@ -179,31 +211,24 @@ return {
           end
 
           if enabled then
-            return " OpenCode: On"
+            return " OpenCode: On"
           else
-            return " OpenCode: Off"
+            return " OpenCode: Off"
           end
         end,
         color = { fg = colors.cyan, gui = "bold" },
       })
 
+      -- LSP status component (clients attached to the current buffer)
       ins_left({
         function()
-          local msg = "No Active Lsp"
-          local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-          local clients = vim.lsp.get_active_clients()
-          if next(clients) == nil then
-            return msg
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
+          if #clients == 0 then
+            return "No Active Lsp"
           end
-          for _, client in ipairs(clients) do
-            local filetypes = client.config.filetypes
-            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-              return client.name
-            end
-          end
-          return msg
+          return clients[1].name
         end,
-        icon = " LSP:",
+        icon = " LSP:",
         color = { fg = "#ffffff", gui = "bold" },
       })
 
@@ -215,16 +240,27 @@ return {
       })
 
       ins_right({ "fileformat", fmt = string.upper, icons_enabled = false, color = { fg = colors.green, gui = "bold" } })
-      ins_right({ "branch", icon = "", color = { fg = colors.violet, gui = "bold" } })
+      ins_right({ "branch", icon = "", color = { fg = colors.violet, gui = "bold" } })
       ins_right({
         "diff",
-        symbols = { added = " ", modified = "󰝤 ", removed = " " },
+        symbols = { added = " ", modified = "󰝤 ", removed = " " },
         diff_color = {
           added = { fg = colors.green },
           modified = { fg = colors.orange },
           removed = { fg = colors.red },
         },
         cond = conditions.hide_in_width,
+      })
+
+      -- live-server indicator (state comes from the :LiveServer command)
+      ins_right({
+        function()
+          if vim.g.liveserver_bufnr ~= nil then
+            return "󱄙"
+          end
+          return ""
+        end,
+        color = { fg = "#268bd2" },
       })
 
       ins_right({
@@ -273,13 +309,42 @@ return {
         current_line_blame_opts = {
           delay = 200,
         },
-        -- signs = {
-        --   add = { text = '+' },
-        --   change = { text = '~' },
-        --   delete = { text = '_' },
-        --   topdelete = { text = '‾' },
-        --   changedelete = { text = '~' },
-        -- },
+        -- LazyVim-style hunk mappings (ported from the backup)
+        on_attach = function(buffer)
+          local gs = package.loaded.gitsigns
+          local function bmap(mode, l, r, desc)
+            vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc, silent = true })
+          end
+          -- stylua: ignore start
+          bmap("n", "]h", function()
+            if vim.wo.diff then
+              vim.cmd.normal({ "]c", bang = true })
+            else
+              gs.nav_hunk("next")
+            end
+          end, "Next Hunk")
+          bmap("n", "[h", function()
+            if vim.wo.diff then
+              vim.cmd.normal({ "[c", bang = true })
+            else
+              gs.nav_hunk("prev")
+            end
+          end, "Prev Hunk")
+          bmap("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
+          bmap("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
+          bmap({ "n", "x" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+          bmap({ "n", "x" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+          bmap("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
+          bmap("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+          bmap("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
+          bmap("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
+          bmap("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
+          bmap("n", "<leader>ghB", gs.blame, "Blame Buffer")
+          bmap("n", "<leader>ghd", gs.diffthis, "Diff This")
+          bmap("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+          bmap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+          -- stylua: ignore end
+        end,
       })
     end,
   },
@@ -290,18 +355,11 @@ return {
     event = "LspAttach",
     config = function()
       require("fidget").setup({
-        -- text = {
-        --   spinner = "meter",
-        -- },
-        -- window = {
-        --   blend = 0, -- set 0 if using transparent background, otherwise set 100
-        -- },
         progress = {
           poll_rate = 200,
           ignore_done_already = true,
           display = {
             done_ttl = 0.5,
-            -- done_icon = " ",
             -- Icon shown when LSP progress tasks are in progress
             progress_icon = { pattern = "meter", period = 1 },
             -- Highlight group for in-progress LSP tasks
@@ -312,7 +370,6 @@ return {
           },
         },
         notification = {
-          -- override_vim_notify = true,
           window = {
             winblend = 0,
           },
@@ -322,86 +379,8 @@ return {
   },
 
   ---------------------------------- Neovim plugin to improve the default vim.ui interfaces---------------------------
-  {
-    "stevearc/dressing.nvim",
-    event = "BufEnter",
-    config = function()
-      require("dressing").setup({
-        input = {
-          win_options = {
-            winblend = 0,
-          },
-        },
-      })
-    end,
-  },
-
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    cmd = "Neotree",
-    keys = {
-      { "<space>e", "<cmd>Neotree toggle<cr>", mode = "n", desc = "Toggle Neotree" },
-      { "<space>b", "<cmd>Neotree buffers<cr>", mode = "n", desc = "Neotree Buffers" },
-    },
-    config = function()
-      require("neo-tree").setup({
-        close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
-        filesystem = {
-          follow_current_file = {
-            enabled = true,
-          },
-          filtered_items = {
-            hide_dotfiles = true,
-            hide_gitignored = false,
-            hide_hidden = false,
-            hide_by_name = {
-              ".git",
-            },
-          },
-        },
-      })
-    end,
-  },
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    version = "2",
-    config = function()
-      vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { link = "IndentBlanklineChar" })
-      vim.api.nvim_create_autocmd("ColorScheme", {
-        pattern = "*",
-        callback = function()
-          vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { link = "IndentBlanklineChar" })
-        end,
-        group = vim.api.nvim_create_augroup("RelinkIndentBlanklineHightLightGroup", { clear = true }),
-        desc = "Relink IndentBlankline Highlight Group",
-      })
-      require("indent_blankline").setup({
-        char = "",
-        context_char = "┆",
-        show_current_context = true,
-      })
-    end,
-  },
-
-  {
-    "luukvbaal/statuscol.nvim",
-    config = function()
-      local builtin = require("statuscol.builtin")
-      require("statuscol").setup({
-        ft_ignore = { "alpha", "neo-tree", "oil" },
-        segments = {
-          { sign = { name = { "Diagnostic" } } },
-          { sign = { name = { "Dap.*" } } },
-          { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
-          { sign = { namespace = { "gitsign" }, auto = false } },
-        },
-      })
-    end,
-  },
+  -- dressing.nvim was removed: snacks.input (enabled in plugins/snack.lua)
+  -- covers vim.ui.input/select already.
 
   {
     "echasnovski/mini.animate",
@@ -461,134 +440,32 @@ return {
     end,
   },
 
-  --------------------------- a lua powered greeter like vim-startify / dashboard-nvim---------------------------
-  {
-    "goolord/alpha-nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      local util = require("util")
-      local dashboard = require("alpha.themes.dashboard")
-
-      -- local logo = {
-      --   [[0    0    0    0    0    0]],
-      --   [[1    1    1    1    1    1]],
-      --   [[1    1    1    1    1    1]],
-      --   [[0    0    0    1    0    0]],
-      --   [[1    0    1    0    1    1]],
-      --   [[1    1    1    1    0    1]],
-      --   [[1    0    1    1    0    0]],
-      --   [[0    1    1    0    1    1]],
-      -- }
-      --
-      local version = "v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
-      dashboard.section.header.val = "NVIM " .. version
-
-      local userName = "Ezra"
-      local greeting = util.get_greeting(userName)
-
-      local greetHeading = {
-        type = "text",
-        val = greeting,
-        opts = {
-          position = "center",
-          hl = "String",
-        },
-      }
-
-      dashboard.section.buttons.val = {
-        util.button("n", " " .. " New file", "<cmd> enew <cr>"),
-        util.button("󱁐 + f + f", " " .. " Find file", "<cmd> Telescope find_files <cr>"),
-        util.button("q", " " .. " Quit", "<cmd> qa <cr>"),
-      }
-
-      dashboard.config.layout = {
-        { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.35) }) },
-        dashboard.section.header,
-        { type = "padding", val = 1 },
-        greetHeading,
-        { type = "padding", val = 2 },
-        dashboard.section.buttons,
-        { type = "padding", val = 1 },
-        dashboard.section.footer,
-        { type = "padding", val = 100 },
-      }
-
-      for _, button in ipairs(dashboard.section.buttons.val) do
-        button.opts.hl = "AlphaButtons"
-        button.opts.hl_shortcut = "AlphaShortcut"
-      end
-      dashboard.section.header.opts.hl = "AlphaHeader"
-      dashboard.section.buttons.opts.hl = "AlphaButtons"
-      dashboard.section.footer.opts.hl = "AlphaFooter"
-
-      require("alpha").setup(dashboard.config)
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "LazyVimStarted",
-        desc = "Add load plugins greeting to Alpha dashboad",
-        once = true,
-        callback = function()
-          local stats = require("lazy").stats()
-          local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
-          dashboard.section.footer.val = { "Neovim loaded  " .. stats.count .. " plugins in " .. ms .. "ms" }
-          pcall(vim.cmd.AlphaRedraw)
-        end,
-      })
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "AlphaReady",
-        desc = "Prevent from first ctrl-o not work when enter nvim",
-        once = true,
-        callback = function()
-          local jump_back_key = vim.api.nvim_replace_termcodes("<C-o>", true, false, true)
-          vim.api.nvim_feedkeys(jump_back_key, "n", false)
-        end,
-      })
-    end,
-  },
   -- lazy.nvim------------------config-for-nvim-notifications----------------------
+  -- (alpha-nvim, dressing, indent-blankline and statuscol.nvim were removed:
+  --  snacks.nvim covers all of them, see plugins/snack.lua)
   {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
       lsp = {
         progress = {
-          enabled = false,
+          enabled = false, -- fidget.nvim shows LSP progress
         },
       },
-      ------------------------------------
-      cmdline_popup = {
-        position = {
-          row = 15,
-          col = "50%",
-        },
-        size = {
-          width = "auto",
-          height = "auto",
+      -- current noice schema: position/size live under `views`, the old
+      -- top-level `cmdline_popup` key was silently ignored
+      views = {
+        cmdline_popup = {
+          position = {
+            row = 15,
+            col = "50%",
+          },
+          size = {
+            width = "auto",
+            height = "auto",
+          },
         },
       },
-      -------------------------
     },
-
-    -- dependencies = {
-    --  "MunifTanjim/nui.nvim",
-    -- {
-    --  "rcarriga/nvim-notify",
-    -- event = "VeryLazy",
-    -- opts = {
-    --  timeout = 1200,
-    --  render = "wrapped-compact",
-    --},
-    --config = function(_, opts)
-    -- Set up nvim-notify with the provided options and a transparent background
-    -- require("notify").setup(vim.tbl_deep_extend("force", {
-    --  background_colour = "#00000000", -- Fully transparent background
-    --}, opts))
-
-    -- Replace the default vim.notify function with nvim-notify
-    --vim.notify = require("notify")
-    --end,
-    -- },
-    -- },
   },
 }

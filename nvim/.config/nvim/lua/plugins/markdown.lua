@@ -2,13 +2,15 @@ return {
 
   -- Improve viewing Markdown files.
   {
-    "MeanderingProgrammer/markdown.nvim",
-    name = "render-markdown",
-    ft = { "markdown" },
+    -- The old repo name (MeanderingProgrammer/markdown.nvim) installed a second
+    -- copy next to render-markdown.nvim; one spec is enough.
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "opencode_output" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {
       render_modes = { "n", "c" },
-      headings = { " ", "󰉬  ", "󰉭  ", "󰉮  ", "󰉯  ", "󰉰  " },
+      file_types = { "markdown", "opencode_output" },
+      headings = { " ", "󰉬  ", "󰉭  ", "󰉮  ", "󰉯  ", "󰉰  " },
       highlights = {
         heading = {
           -- Background of heading line
@@ -38,12 +40,12 @@ return {
         table = {
           -- Header of a markdown table
           head = "@markup.heading",
-          -- Non header rows in a markdown table
+          -- Non header row of a markdown table
           row = "Normal",
         },
         -- LaTeX blocks
         latex = "@markup.math",
-        -- Quote character in a block quote
+        -- Quote character in block quote
         quote = "@markup.quote",
       },
     },

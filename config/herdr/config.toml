@@ -1,0 +1,45 @@
+onboarding = false
+
+[theme]
+name = "catppuccin"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+agent_panel_scope = "all"
+
+[keys]
+prefix = "ctrl+space"
+split_vertical = "prefix+backslash"
+split_horizontal = "prefix+minus"
+previous_workspace = "prefix+{"
+next_workspace = "prefix+}"
+previous_agent = "prefix+,"
+next_agent = "prefix+."
+focus_agent = "prefix+alt+1..9"
+focus_pane_left = "shift+alt+left"
+focus_pane_down = "shift+alt+down"
+focus_pane_up = "shift+alt+up"
+focus_pane_right = "shift+alt+right"
+
+[terminal]
+default_shell = "$SHELL"
+shell_mode = "auto"
+new_cwd = "follow"
+
+[ui.sound]
+enabled = false
+
+[ui.toast]
+delivery = "herdr"
+
+[session]
+resume_agents_on_restore = true
+
+[remote]
+manage_ssh_config = true
+
+[advanced]
+scrollback_limit_bytes = 100000000
+
+[experimental]
+kitty_graphics = true

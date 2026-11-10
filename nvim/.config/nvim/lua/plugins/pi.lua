@@ -15,7 +15,8 @@ return {
       -- features
       skills = true,
       extensions = true,
-      tools = true,
+      -- `tools` must be a list of tool names (or nil for the defaults) since
+      -- pi.nvim v0.8; `true` here made setup throw on every start.
     })
 
     -- Keymaps

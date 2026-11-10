@@ -1,80 +1,78 @@
 return {
   -- Treesitter (syntax highlighting + parsing)
+  --
+  -- nvim-treesitter was rewritten for Neovim 0.12 (the `main` branch) and the
+  -- old `require("nvim-treesitter.configs").setup()` module is gone. Highlighting
+  -- and indentation are now enabled per buffer through a FileType autocmd, and
+  -- parsers are installed with `install()` instead of `ensure_installed`.
+  -- NOTE: the plugin does not support lazy-loading on this branch.
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      "windwp/nvim-ts-autotag",
-    },
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
-        highlight = {
-          enable = true,
-        },
+      require("nvim-treesitter").setup({
+        install_dir = vim.fn.stdpath("data") .. "/site",
+      })
 
-        indent = {
-          enable = true,
-          disable = { "python" },
-        },
+      -- Languages we want parsers for (replaces ensure_installed). Unknown
+      -- names are skipped so a parser rename never breaks startup.
+      local wanted = {
+        "vim",
+        "vimdoc",
+        "markdown",
+        "markdown_inline",
+        "bash",
+        "regex",
+        "c",
+        "cpp",
+        "go",
+        "gomod",
+        "java",
+        "javascript",
+        "typescript",
+        "tsx",
+        "json",
+        "toml",
+        "html",
+        "css",
+        "scss",
+        "lua",
+        "rust",
+        "kdl",
+      }
 
-        ensure_installed = {
-          "vim",
-          "vimdoc",
-          "markdown",
-          "markdown_inline",
-          "bash",
-          "regex",
-          "c",
-          "cpp",
-          "go",
-          "gomod",
-          "java",
-          "javascript",
-          "typescript",
-          "tsx",
-          "json",
-          "toml",
-          "html",
-          "css",
-          "scss",
-          "lua",
-          "rust",
-          "kdl",
-        },
+      local ok_parsers, parsers = pcall(require, "nvim-treesitter.parsers")
+      local supported = {}
+      for _, name in ipairs(wanted) do
+        if not ok_parsers or parsers[name] then
+          table.insert(supported, name)
+        end
+      end
+      require("nvim-treesitter").install(supported)
 
-        auto_install = true,
+      -- Enable treesitter highlighting/indentation for filetypes that have a
+      -- parser. Highlighting is a no-op when no parser/query exists (pcall).
+      local indent_disabled = { python = true }
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("TreesitterFeatures", { clear = true }),
+        callback = function(args)
+          pcall(vim.treesitter.start, args.buf)
 
-        autotag = {
-          enable = true,
-        },
-
-        -- textobjects (kept commented as in original)
-        -- textobjects = {
-        --   select = {
-        --     enable = true,
-        --     lookahead = true,
-        --     keymaps = {
-        --       ["af"] = { query = "@function.outer", desc = "Select outer part of a function region" },
-        --       ["if"] = { query = "@function.inner", desc = "Select inner part of a function region" },
-        --       ["ac"] = { query = "@class.outer", desc = "Select outer part of a class region" },
-        --       ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-        --     },
-        --   },
-        --   swap = {
-        --     enable = true,
-        --     swap_next = {
-        --       ["<leader>xp"] = { query = "@parameter.inner", desc = "Swap parameter with the next one" },
-        --     },
-        --     swap_previous = {
-        --       ["<leader>xP"] = { query = "@parameter.inner", desc = "Swap parameter with the previous one" },
-        --     },
-        --   },
-        -- },
+          if not indent_disabled[vim.bo[args.buf].filetype] then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
       })
     end,
+  },
+
+  -- Autotag (own setup now, the old `autotag = { enable }` field inside
+  -- nvim-treesitter.configs never did anything)
+  {
+    "windwp/nvim-ts-autotag",
+    event = { "InsertEnter", "BufReadPost" },
+    opts = {},
   },
 
   -- Autopairs

@@ -6,7 +6,7 @@
 
 # === Prompt-wide configurations ===
 
- palette = 'cyberpunk'  # gruvpunk'cyberpunk'/'catppuccin_latte'/'catppuccin_mocha'/'catppuccin_frappe'/'catppuccin_macchiato'
+ palette = 'catppuccin_frappe'  # gruvpunk'cyberpunk'/'catppuccin_latte'/'catppuccin_mocha'/'catppuccin_frappe'/'catppuccin_macchiato'
 
 command_timeout = 1500       # Default timeout for commands is 500ms
 
@@ -27,14 +27,6 @@ $localip\
 
 $directory\
 
-$git_branch\
-
-$git_commit\
-
-$git_state\
-
-$git_status\
-
 $fill\
 
 $all$cmd_duration\
@@ -47,6 +39,7 @@ $character
 
 """
 
+# $git_branch\ ,git_state\ ,git_status\
 
 
 
@@ -61,14 +54,14 @@ symbol = " "
 
 [character]
 
-success_symbol = "[󰅂](bold green)"
-error_symbol = "[󰩈 ](bold red)"
-vimcmd_symbol = "[](bold green)"
-vimcmd_replace_one_symbol = "[ ](bold purple)"
-vimcmd_replace_symbol = "[ ](bold purple)"
-vimcmd_visual_symbol = "[ ](bold yellow)"
-
-
+#success_symbol = "[󰅂](bold green)"
+#error_symbol = "[󰩈 ](bold red)"
+#vimcmd_symbol = "[](bold green)"
+#vimcmd_replace_one_symbol = "[ ](bold purple)"
+#vimcmd_replace_symbol = "[ ](bold purple)"
+#vimcmd_visual_symbol = "[ ](bold yellow)"
+error_symbol = "[󰩈 ](bold red)" #" [](bold red)"
+success_symbol = " [╰─󰀵 ](bold green)"
 
 
 # === 1st Line: left hand side ===
@@ -76,17 +69,20 @@ vimcmd_visual_symbol = "[ ](bold yellow)"
 [username]
 
 disabled = false
-format = "[ $user]($style) "
+format = " [╭─  $user]($style) "
+show_always = true 
+style_user = "bold green"
+
+# format = "[ $user]($style) "
 
 
 
 
 [sudo]
-
-disabled = true
+disabled = false
 style = "bold rosewater"
 # symbol = '\[sudo\] '
-symbol = "󰌾 " # " " 
+symbol = " 󰌾 " # " " 
 format = "[$symbol]($style)"
 
 
@@ -115,9 +111,9 @@ disabled = false
 
 truncation_symbol = "   " #"…/      
 home_symbol = " ~ " #" ~ "  
-truncate_to_repo = false
-truncation_length = 0
-style = "bold cyan"
+truncate_to_repo = true
+truncation_length = 2
+style = "bold purple"
 
 
 
@@ -130,54 +126,6 @@ style = "bold cyan"
 "~/.dotfiles/" = " "
 
 
-
-
-[git_branch]
-
-symbol = "  "
-format = '[on](text dimmed) [$symbol$branch(:$remote_branch)]($style) '
-style = "bold green"
-
-
-
-
-[git_commit]
-
-format = '[on](text dimmed) [ $hash$tag]($style) '
-style = "bold green"
-tag_disabled = false
-tag_symbol = "  "
-
-
-
-
-[git_state]
-
-rebase = "REBASING"
-merge = "MERGING"
-cherry_pick = "🍒 PICKING"
-style = "bold yellow"
-
-
-
-
-[git_status]
-
-style = "bold red"
-format = '[$all_status$ahead_behind]($style)'
-renamed = "󰆾 "
-conflicted = "󰞇 "
-up_to_date = " "
-# untracked = " "
-# untracked = " "
-untracked = "󱄁 "
-modified = " "
-deleted = " "
-stashed = "󰏗 "
-staged = '[++$count](green) '
-diverged = "⇕⇡($ahead_count)⇣($behind_count) "
-ahead = "⇡$count "
-behind = "⇣$count "
 
 
 [battery]
@@ -208,7 +156,7 @@ style = "flamingo"
 
 [memory_usage]
 
-disabled = false
+disabled = true
 threshold = 30  ## if memory usage is over 30%, show memory usage
 # format = 'via $symbol [$ram_pct, $ram \($swap_pct, $swap\) ]($style)'
 format = '$symbol [$ram_pct \($ram\) ]($style)'
@@ -224,111 +172,77 @@ disabled = true
 
 
 
+[aws]
+symbol = " "
 
-[nodejs]
+[conda]
+symbol = " "
 
-symbol = "󰎙 "
-format = '[$symbol($version )]($style)'
-
-
-
-
-[python]
-
-symbol = "󰌠 "
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
-
-#NOTE: it's possible to show pyenv version
-
-
-
-
-[rust]
-
-symbol = " "
-format = '[$symbol($version )]($style)'
-
-
-
+[dart]
+symbol = " "
 
 [docker_context]
-
 symbol = " "
-format = '[$symbol$context]($style) '
 
+[elixir]
+symbol = " "
 
-
-
-[vagrant]
-
-symbol = "⍱ "
-format = '[$symbol($version )]($style)'
-
-
-
-
-[java]
-
-symbol = " "
-style = "bold red"
-format = '[${symbol}(${version} )]($style)'
-
-
+[elm]
+symbol = " "
 
 
 [golang]
+symbol = " "
 
-symbol = "󰟓 "
-format = '[$symbol($version )]($style)'
+[hg_branch]
+symbol = " "
 
+[java]
+symbol = " "
 
+[julia]
+symbol = " "
 
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+detect_extensions = ["js", "mjs", "cjs", "ts"]
+symbol = " 󰎙"
+format = "[$symbol]($style)"
+disabled = false
 
 [package]
+symbol = "  "
+[perl]
+symbol = " "
 
-symbol = " "
-format = "[$symbol$version]($style) "
+[php]
+symbol = " "
 
+#[python]
+#symbol = " "
+#format = "[$symbol]($style)"
+ # Ensure $python is included in your global format string if you have a custom one
+# format = """ ... $python ... """
 
+[python]
+disabled = false
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+style = "bold yellow"
+symbol = "🐍 "
 
-
-[aws]
-
-symbol = " "
-format = "[$symbol($profile )(\\($region\\) )(\\[$duration\\] )]($style)"
-expiration_symbol = "󰃰"
-
-
-
-
-[lua]
-
-symbol = " "
-format = "[$symbol($version )]($style)"
-
-
-
-
+ # Ensure $python is included in your global format string if you have a custom one
+# format = """ ... $python ... """
 [ruby]
+symbol = " "
 
-symbol = " "
-format = "[$symbol($version )]($style)"
+[rust]
+symbol = " "
 
-
-
-
-[bun]
-
-format = "[$symbol($version )]($style)"
-symbol = " "
-
-
-
-
-[conda]
-
-format = "[$symbol$environment]($style) "
-# ignore_base = false
 
 
 # NOTE: always place this to prevent container tag
@@ -336,41 +250,76 @@ format = "[$symbol$environment]($style) "
 [container]
 disabled = true
 symbol =" " # ""
-
-
-
-
 [haskell]
-
 symbol = " "
 format = "[$symbol($version )]($style)"
-
-
-
-
 [jobs]
-
 symbol = ""
 # symbol = ""
 # symbol = ""
 # symbol = ""
 # symbol = "✦"
-
-
-
-
 [swift]
-
 symbol = " "
 format = "[$symbol($version )]($style)"
-
-
-
-
 [terraform]
-
 symbol = " "
 format = "[$symbol$workspace]($style) "
+
+
+
+
+#testing if git lastwill work note: I donooo
+
+[git_branch]
+
+symbol = "  "
+format = '[on](text dimmed) [$symbol$branch(:$remote_branch)]($style) '
+style = "bold green"
+
+
+
+
+[git_commit]
+
+format = '[on](text dimmed) [ $hash$tag]($style) '
+style = "bold green"
+tag_disabled = false
+tag_symbol = "  "
+
+[git_state]
+
+rebase = "REBASING"
+merge = "MERGING"
+cherry_pick = "🍒 PICKING"
+style = "bold yellow"
+
+
+[git_status]
+
+style = "bold red"
+format = '[$all_status$ahead_behind]($style)'
+renamed = "󰆾 "
+conflicted = "󰞇 "
+up_to_date = " "
+# untracked = " "
+# untracked = " "
+untracked = "󱄁 "
+modified = " "
+deleted = " "
+stashed = "󰏗 "
+staged = '[++$count](green) '
+diverged = "⇕⇡($ahead_count)⇣($behind_count) "
+ahead = "⇡$count "
+behind = "⇣$count "
+
+
+
+
+
+
+
+
 
 
 
@@ -413,6 +362,7 @@ rosewater = "#f2d5cf"
 flamingo = "#eebebe"
 pink = "#f4b8e4"
 mauve = "#ca9ee6"
+purple ="#A177FF"
 red = "#e78284"
 maroon = "#ea999c"
 peach = "#ef9f76"
@@ -538,12 +488,12 @@ crust = "#0b0c0f"      # Blackest black
  [os.symbols]
 
 # Alpine = " "
-Arch = " "
+# Arch = " "
 # CentOS = " "
  # Debian = " "
 # Fedora = " "
 # Gentoo = " "
-# Macos = " "
+ Macos = " "
 # Manjaro = " "
 # Mint = " "
 # NixOS = " "

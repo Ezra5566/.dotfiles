@@ -3,26 +3,83 @@ return {
   priority = 1000,
   lazy = false,
   ---@type snacks.Config
-  opts = {
-    bigfile = { enabled = true },
-    dashboard = { enabled = false },
-    indent = { enabled = true },
-    input = { enabled = true },
-    notifier = {
-      enabled = true,
-      timeout = 3000,
-    },
-    quickfile = { enabled = true },
-    scroll = { enabled = true },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
-    styles = {
-      notification = {
-        -- wo = { wrap = true } -- Wrap notifications
+  opts = (function()
+    local util = require("util")
+    local version = "NVIM v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
+
+    return {
+      bigfile = { enabled = true },
+      -- Replaces alpha-nvim: the old dashboard footer listened for the
+      -- LazyVimStarted event, which never fires outside LazyVim.
+      dashboard = {
+        enabled = true,
+        preset = {
+          header = version .. "\n" .. util.get_greeting("Ezra"),
+          keys = {
+            { icon = "", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = "", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = "", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = "", key = "n", desc = "New File", action = ":ene | startinsert" },
+            {
+              icon = "",
+              key = "c",
+              desc = "Edit Config",
+              action = ":lua Snacks.dashboard.pick('files', { cwd = vim.fn.stdpath('config') })",
+            },
+            { icon = "", key = "q", desc = "Quit", action = ":qa" },
+          },
+        },
+        sections = {
+          { section = "header" },
+          { section = "keys", gap = 1, padding = 1 },
+          { section = "startup" },
+        },
       },
-    },
-  },
+      indent = { enabled = true },
+      input = { enabled = true },
+      -- LazyVim-style file tree (replaces oil.nvim). `enabled` turns the
+      -- module on, `replace_netrw` makes `nvim <dir>` open the tree.
+      explorer = {
+        enabled = true,
+        replace_netrw = true,
+      },
+      notifier = {
+        enabled = true,
+        timeout = 3000,
+      },
+      quickfile = { enabled = true },
+      scroll = { enabled = true },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
+      styles = {
+        notification = {
+          -- wo = { wrap = true } -- Wrap notifications
+        },
+      },
+    }
+  end)(),
   keys = {
+    {
+      "<leader>e",
+      function()
+        Snacks.explorer({ cwd = require("util").project_root() })
+      end,
+      desc = "File Explorer (project root)",
+    },
+    {
+      "<leader>E",
+      function()
+        Snacks.explorer()
+      end,
+      desc = "File Explorer (cwd)",
+    },
+    {
+      "<C-n>",
+      function()
+        Snacks.explorer({ cwd = require("util").project_root() })
+      end,
+      desc = "File Explorer (project root)",
+    },
     {
       "<leader>z",
       function()
@@ -168,6 +225,9 @@ return {
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
+        -- Route all vim.notify() output through snacks
+        vim.notify = Snacks.notifier
+
         -- Setup some globals for debugging (lazy-loaded)
         _G.dd = function(...)
           Snacks.debug.inspect(...)

@@ -1,24 +1,17 @@
-local linters = require("plugins.linting.linters")
-local sources = {} -- a list of to_register_wrap
-for linter, setting in pairs(linters) do
-  if not setting.disabled then
-    sources[linter] = setting.to_register_wrap
-  end
-end
-
+-- Linting through nvim-lint only (none-ls is gone; its linters moved here).
 return {
   {
-    "nvimtools/none-ls.nvim",
-    opts = sources, -- passed to the parent spec's config()
-  },
-
-  {
     "mfussenegger/nvim-lint",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("lint").linters_by_ft = {
         python = { "pylint" },
+        dockerfile = { "hadolint" },
+        go = { "staticcheck" },
       }
-      vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "TextChanged", "BufEnter" }, {
+
+      vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+        group = vim.api.nvim_create_augroup("NvimLint", { clear = true }),
         callback = function()
           require("lint").try_lint()
         end,

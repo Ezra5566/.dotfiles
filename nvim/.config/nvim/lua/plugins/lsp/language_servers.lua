@@ -1,15 +1,17 @@
+-- Language server table for vim.lsp.config()/vim.lsp.enable() (Neovim 0.12 API).
+-- nvim-lspconfig only supplies the defaults (cmd, filetypes, root markers);
+-- entries here are merged on top of them.
+--   name     : mason package name, used by mason-tool-installer
+--   config   : extra fields merged into the server's config
+--   disabled : true skips both install and enable
 return {
   html = {
-    name = "html-lsp", -- for mason installer
-    disabled = false,
+    name = "html-lsp",
   },
   pyright = {
     name = "pyright",
-    disabled = false,
     config = {
-      root_dir = function(fname)
-        return require("lspconfig.util").root_pattern(".git")(fname)
-      end,
+      root_markers = { ".git" },
       settings = {
         python = {
           analysis = {
@@ -46,12 +48,6 @@ return {
   -- },
   ts_ls = {
     name = "typescript-language-server",
-    config = {
-      cmd = { "typescript-language-server", "--stdio" },
-      root_dir = function(fname)
-        return require("lspconfig.util").root_pattern("tsconfig.json", "package.json", ".git")(fname)
-      end,
-    },
   },
 
   cssls = {
@@ -77,14 +73,6 @@ return {
           diagnostics = {
             -- Get the language server to recognize the `vim` global
             globals = { "vim" },
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            -- library = vim.api.nvim_get_runtime_file("", true),
-            library = {
-              vim.fn.stdpath("config"),
-            },
-            checkThirdParty = false,
           },
           -- Do not send telemetry data containing a randomized but unique identifier
           telemetry = {

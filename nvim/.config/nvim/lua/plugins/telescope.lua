@@ -5,15 +5,14 @@ local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}
 
   filepath = vim.fn.expand(filepath)
-  vim.loop.fs_stat(filepath, function(_, stat)
+  vim.uv.fs_stat(filepath, function(_, stat)
     if not stat then
       return
     end
     if stat.size > 100000 then
       return
-    else
-      require("telescope.previewers").buffer_previewer_maker(filepath, bufnr, opts)
     end
+    require("telescope.previewers").buffer_previewer_maker(filepath, bufnr, opts)
   end)
 end
 
@@ -31,7 +30,7 @@ local function edit_neovim()
 end
 
 local function find_files_or_git_files()
-  if vim.loop.fs_stat(vim.loop.cwd() .. "/.git") then
+  if vim.uv.fs_stat(vim.uv.cwd() .. "/.git") then
     local opts = {
       previewer = enable_previewer,
       show_untracked = true,
@@ -109,6 +108,14 @@ local function lsp_implementations()
   }))
 end
 
+local function oldfiles()
+  require("telescope.builtin").oldfiles()
+end
+
+local function buffers()
+  require("telescope.builtin").buffers()
+end
+
 return {
   -- super powerful fuzzy-finder
   {
@@ -117,7 +124,8 @@ return {
     keys = {
       { "<leader>fgf", find_files_or_git_files, mode = "n", desc = "Find Files or Git Files" },
       { "<leader>ff", find_files, mode = "n", desc = "Find Files" },
-      { "<leader>fr", require("telescope.builtin").oldfiles, mode = "n", desc = "Recent Files" },
+      { "<leader>fr", oldfiles, mode = "n", desc = "Recent Files" },
+      { "<leader>fb", buffers, mode = "n", desc = "Buffers" },
       { "<leader>fg", "<cmd>Telescope live_grep<cr>", mode = "n", desc = "Live Grep" },
       { "<C-f>", live_grep, mode = "n", desc = "Live Grep (Args)" },
       { "<leader>fs", grep_string, mode = "n", desc = "Grep String" },
@@ -168,9 +176,6 @@ return {
           undo = {
             mappings = {
               i = {
-                -- ["<cr>"] = require("telescope-undo.actions").yank_additions,
-                -- ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
-                -- ["<C-cr>"] = require("telescope-undo.actions").restore,
                 ["<cr>"] = require("telescope-undo.actions").restore,
               },
             },
@@ -203,13 +208,15 @@ return {
   },
 
   -- Getting you where you want with the fewest keystrokes
+  -- (harpoon 2: the master branch is deprecated, all changes go to harpoon2)
   {
     "ThePrimeagen/harpoon",
+    branch = "harpoon2",
     keys = {
       {
         "<C-e>",
         function()
-          require("harpoon.ui").toggle_quick_menu()
+          require("harpoon.ui").toggle_quick_menu(require("harpoon"):list())
         end,
         mode = "n",
         desc = "Harpoon Menu",
@@ -217,7 +224,7 @@ return {
       {
         "<leader>a",
         function()
-          require("harpoon.mark").add_file()
+          require("harpoon"):list():add()
         end,
         mode = "n",
         desc = "Harpoon Add File",
@@ -256,7 +263,9 @@ return {
       },
     },
     config = function()
-      vim.api.nvim_create_autocmd({ "Filetype" }, {
+      require("harpoon"):setup()
+
+      vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = "harpoon",
         callback = function()
           vim.opt.cursorline = true

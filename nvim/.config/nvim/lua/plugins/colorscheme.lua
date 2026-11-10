@@ -29,6 +29,12 @@ return {
     config = function()
       require("catppuccin").setup({
         transparent_background = true,
+        -- keep the whole float layer see-through as well (LSP hover, telescope,
+        -- the snacks file explorer, which-key, ...) — without this the float
+        -- surfaces come back solid #181825 mantle and break the transparency
+        float = {
+          transparent = true,
+        },
       })
      vim.cmd("colorscheme catppuccin") -- Uncomment to set as default
     end,
@@ -97,7 +103,7 @@ return {
     "0xstepit/flow.nvim",
     lazy = true,
     keys = {
-      { "<leader>cl", "<cmd>Telescope colorcheme<cr>", desc = "Select Colorscheme with Preview" },
+      { "<leader>cl", "<cmd>Telescope colorscheme<cr>", desc = "Select Colorscheme with Preview" },
     },
     config = function()
       require("flow").setup({

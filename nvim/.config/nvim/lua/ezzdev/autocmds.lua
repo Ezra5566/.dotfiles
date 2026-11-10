@@ -3,9 +3,40 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("YankHighlighting", { clear = true }),
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 100 })
+    vim.hl.on_yank({ higroup = "IncSearch", timeout = 100 })
   end,
 })
+
+-- Transparency guard -------------------------------------------------------
+-- The colorscheme clears Normal/NormalNC, but floats and plugin surfaces
+-- (bufferline's tab line, the snacks file explorer, trouble, telescope/which
+-- key floats that resolve to NormalFloat, ...) paint their own backgrounds.
+-- Strip them whenever a colorscheme is applied so the terminal background
+-- always shows through. Selection/cursorline highlights are left alone.
+local TRANSPARENT_PATTERNS = {
+  "^NormalFloat$",
+  "^Float(Border|Title|Footer)$",
+  "^BufferLine",
+  "^Trouble",
+  "^Snacks(NormalNC|Header|Title|Footer|Border|Icon|Layout)",
+  "^SnacksPicker",
+}
+
+local function enforce_transparency()
+  require("util").transparentize(TRANSPARENT_PATTERNS)
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("TransparencyGuard", { clear = true }),
+  callback = enforce_transparency,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = enforce_transparency,
+})
+
+enforce_transparency()
 
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -33,7 +64,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
   group = vim.api.nvim_create_augroup("HideDiagnostic", { clear = true }),
   pattern = "*",
   callback = function()
-    vim.diagnostic.hide(nil, 0)
+    vim.diagnostic.enable(false)
   end,
 })
 
@@ -42,7 +73,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   group = vim.api.nvim_create_augroup("ShowDiagnostic", { clear = true }),
   pattern = "*",
   callback = function()
-    vim.diagnostic.show(nil, 0)
+    vim.diagnostic.enable(true)
   end,
 })
 

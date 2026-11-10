@@ -1,24 +1,34 @@
 return {
-  -- Distraction-free coding for Neovim
-  {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    config = function()
-      vim.api.nvim_set_hl(0, "ZenBg", { ctermbg = 0 })
-    end,
-  },
+  -- Distraction-free coding comes from snacks.zen now (mapped to <leader>z
+  -- in plugins/snack.lua) — the standalone zen-mode.nvim plugin is gone.
 
-  -- commenting
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  },
-  --to do commments
+  -- to do comments
   {
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
+    lazy = false, -- keep the highlights at startup, `keys` are just extras
+    keys = {
+      {
+        "]t",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next Todo Comment",
+      },
+      {
+        "[t",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Previous Todo Comment",
+      },
+      { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+      {
+        "<leader>xT",
+        "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>",
+        desc = "Todo/Fix/Fixme (Trouble)",
+      },
+    },
     config = function()
       require("todo-comments").setup({})
     end,
@@ -34,14 +44,14 @@ return {
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
 
-      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+      -- Using ufo provider need remap `zR` and `zM`.
       vim.keymap.set("n", "zR", require("ufo").openAllFolds)
       vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 
       -- Adding number suffix of folded lines instead of the default ellipsis
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
-        local suffix = ("  %d "):format(endLnum - lnum)
+        local suffix = ("  %d "):format(endLnum - lnum)
         local sufWidth = vim.fn.strdisplaywidth(suffix)
         local targetWidth = width - sufWidth
         local curWidth = 0
@@ -50,7 +60,6 @@ return {
           local chunkWidth = vim.fn.strdisplaywidth(chunkText)
           if targetWidth > curWidth + chunkWidth then
             table.insert(newVirtText, chunk)
-            print(vim.inspect(chunk))
           else
             chunkText = truncate(chunkText, targetWidth - curWidth)
             local hlGroup = chunk[2]
@@ -112,6 +121,20 @@ return {
         win = {
           border = "single",
         },
+        -- LazyVim-style group labels (only prefixes that are not already a
+        -- direct mapping here, so nothing gets shadowed)
+        spec = {
+          { "<leader>b", group = "buffer" },
+          { "<leader>f", group = "file/find" },
+          { "<leader>g", group = "git" },
+          { "<leader>gh", group = "hunks" },
+          { "<leader>q", group = "quit/session" },
+          { "<leader>x", group = "diagnostics/quickfix" },
+          { "[", group = "prev" },
+          { "]", group = "next" },
+          { "g", group = "goto" },
+          { "z", group = "fold" },
+        },
       })
     end,
   },
@@ -122,39 +145,8 @@ return {
     lazy = true,
   },
 
-  -- Neovim file explorer: edit your filesystem like a buffer
-  {
-    "stevearc/oil.nvim",
-    cmd = "Oil",
-    keys = {
-      { "<C-n>", "<CMD>Oil --float<CR>", mode = "n", desc = "Open parent directory" },
-    },
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      local function discard_and_close()
-        require("oil").discard_all_changes()
-        require("oil.actions").close.callback()
-      end
-      require("oil").setup({
-        default_file_explorer = true,
-        columns = {
-          "icon",
-        },
-        view_options = {
-          show_hidden = true,
-        },
-        float = {
-          padding = 2,
-          max_width = 78,
-          max_height = 14,
-        },
-        keymaps = {
-          ["<esc>"] = discard_and_close,
-          ["<c-n>"] = discard_and_close,
-        },
-      })
-    end,
-  },
+  -- File explorer: replaced oil.nvim by the Snacks tree explorer (the style
+  -- from the LazyVim backup). See plugins/snack.lua for the keymaps.
 
   {
     "iamcco/markdown-preview.nvim",
@@ -174,7 +166,7 @@ return {
             let l:mdp_browser = '/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe'
             let l:mdp_browser_opts = '--new-window'
             if !filereadable(substitute(l:mdp_browser, '\\ ', ' ', 'g'))
-              let l:mdp_browser = '/mnt/c/Program\ Files\ \(x86\)/Microsoft/Edge/Application/msedge.exe'
+              let l:mdp_browser = '/mnt/c/Program\ Files\ (x86)/Microsoft/Edge/Application/msedge.exe'
               let l:mdp_browser_opts = '--new-window'
             endif
             execute join(['silent! !', l:mdp_browser, l:mdp_browser_opts, a:url])

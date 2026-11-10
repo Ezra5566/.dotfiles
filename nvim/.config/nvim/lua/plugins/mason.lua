@@ -1,38 +1,24 @@
 return {
   -- managing tool
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim", -- repo moved from williamboman/ to mason-org/
     dependencies = {
-      -- bridges mason with the lspconfig
-      { "williamboman/mason-lspconfig.nvim" },
-
       -- Install and upgrade third party tools automatically
       {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         config = function()
-          local langueage_servers = require("plugins.lsp.langueage_servers")
-          local formatters = require("plugins.formatting.formatters")
+          local language_servers = require("plugins.lsp.language_servers")
 
-          --------------------addthis if thereis debuging-------------------------------
-          -- local adapters = require("plugins.dap.adapters")
-
-          local linters = require("plugins.linting.linters")
           local tool_names = {}
-          for _, server in pairs(langueage_servers) do
-            table.insert(tool_names, server.name)
-          end
-          for _, formatter in pairs(formatters) do
-            table.insert(tool_names, formatter.name)
+          for _, server in pairs(language_servers) do
+            if not server.disabled then
+              table.insert(tool_names, server.name)
+            end
           end
 
-          -----------------------------addthis if thereis debuging-------------------------------
-          -- for _, adapter in pairs(adapters) do
-          -- table.insert(tool_names, adapter.name)
-          -- end
+          -- formatters (conform.nvim) + linters (nvim-lint)
+          vim.list_extend(tool_names, { "prettier", "stylua", "hadolint", "pylint", "staticcheck" })
 
-          for _, linter in pairs(linters) do
-            table.insert(tool_names, linter.name)
-          end
           require("mason-tool-installer").setup({
             ensure_installed = tool_names,
           })
@@ -51,7 +37,9 @@ return {
         },
       })
 
-      require("mason-lspconfig").setup()
+      -- mason-lspconfig is intentionally NOT used: servers are enabled
+      -- explicitly through vim.lsp.enable() in plugins/lsp/init.lua, so there
+      -- is a single source of truth for which servers run.
     end,
   },
 }

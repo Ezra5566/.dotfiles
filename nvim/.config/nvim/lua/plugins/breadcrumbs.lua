@@ -1,17 +1,16 @@
+-- Breadcrumbs / winbar (replaces barbecue.nvim, which has been archived;
+-- dropbar is the maintained replacement and needs zero configuration)
 return {
-  "utilyre/barbecue.nvim",
-  name = "barbecue",
-  version = "*",
-  dependencies = {
-    "SmiteshP/nvim-navic",
-    "nvim-tree/nvim-web-devicons",
+  "Bekaboo/dropbar.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  keys = {
+    {
+      "<leader>[",
+      function()
+        require("dropbar.api").pick()
+      end,
+      mode = "n",
+      desc = "Pick symbol in winbar",
+    },
   },
-  opts = {},
-  config = function()
-    require("barbecue").setup()
-    vim.keymap.set("n", "<leader>[", function()
-      require("barbecue.ui").toggle()
-    end)
-  end,
-  enabled = true,
 }
